@@ -76,15 +76,54 @@ html[data-theme=dark] .chip.past{background:#173524;color:#b7ebc9}html[data-them
 #v_days.m-ud .dr>b,#v_days.m-ud .wh{font-size:.68rem}
 #v_days.m-ud .wh{padding:6px 2px 4px}#week{overflow-x:hidden}
 .dr button.more{min-width:28px;min-height:44px}
-#wsum{font-size:.95rem}</style></head><body><main>
+#wsum{font-size:.95rem}
+#dstrip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;margin:8px 0 10px}
+#dstrip .db{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:1px;background:transparent;color:var(--fg666);min-height:58px;height:auto;padding:4px 0 8px;border-radius:10px;font-size:.68rem;font-weight:650;line-height:1.15;letter-spacing:.01em;box-shadow:none}
+#dstrip .db b{font-size:1.02rem;font-weight:750;color:var(--fg222);line-height:1.2}
+#dstrip .db.sel{color:var(--fg036);box-shadow:inset 0 -3px 0 var(--fg036);border-radius:10px 10px 2px 2px}
+#dstrip .db.sel b{color:var(--fg036)}
+#dstrip .db.tod:not(.sel) b{box-shadow:0 0 0 2px var(--bg0a6);border-radius:999px;min-width:1.7em;height:1.7em;display:flex;align-items:center;justify-content:center}
+#dstrip .dot{width:5px;height:5px;border-radius:50%;background:var(--fg036);display:block;margin-top:3px}
+#dstrip .dot.off{visibility:hidden}
+#week .wh{display:none!important}
+#week .dc{display:none}
+#week .dc.on{display:block;border:0;background:transparent;box-shadow:none;opacity:1}
+#week.card{padding:12px 12px 14px}
+#week .dc.on .dr{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 0 8px;cursor:default;min-height:0}
+#week .dc.on .dr>b{grid-column:1/-1;font-size:1.2rem;font-weight:750;padding:0 2px 2px;overflow:visible}
+#week .dc.on .dr .il{display:flex;flex-direction:column;align-items:stretch;gap:4px;margin:0;font-size:.72rem;font-weight:750;letter-spacing:.06em;color:var(--fg666);text-transform:uppercase;min-height:0;padding:0}
+#week .dc.on .dr input.ri{min-height:58px;font-size:1.55rem;font-weight:700;text-align:center;border-radius:12px;padding:8px 4px}
+#v_days.m-ud #week .dc.on .dr{grid-template-columns:1fr 1fr!important;gap:10px!important}
+#v_days.m-ud #week .dc.on .dr input.ri{font-size:1.55rem!important;min-height:58px;padding:8px 4px}
+#v_days.m-ud #week .dc.on .dr>b{font-size:1.2rem}
+#week .dc.on .fl,#week .dc.on .rt,#week .dc.on .cc,#week .dc.on .more,#week .dc.on .dup,#week .shh{display:none!important}
+#week .dc.on .dq{display:flex;flex-wrap:wrap;gap:8px;padding:2px 0 10px;font-size:1rem}
+#week .dc.on .dq label{min-height:48px;padding:8px 10px;background:var(--bgf7f7f7);border-radius:12px;flex:1 1 calc(50% - 8px);justify-content:flex-start}
+html[data-theme=dark] #week .dc.on .dq label{background:#121820}
+#week .dc.on .det{display:block!important;position:static!important;left:auto;right:auto;bottom:auto;z-index:auto;max-height:none;overflow:visible;box-shadow:none;border-radius:0;padding:0;margin:0;background:transparent;max-width:none}
+#week .dc .det{position:static}
+#sheetbg,#sheetbg.on{display:none!important}
+#week .dc.on .dg2 input,#week .dc.on .dg2 select{min-height:44px;font-size:16px}
+#week .dtot{display:none}
+#week .dc.on .dtot{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+#week .dc.on .dtot .dth{grid-column:1/-1;font-size:.72rem;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:var(--fg666);margin:8px 0 0}
+#week .dc.on .dtot .dtr{background:var(--bgf7f7f7);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-height:52px}
+html[data-theme=dark] #week .dc.on .dtot .dtr{background:#121820}
+#week .dc.on .dtot .dtr span{font-size:.72rem;color:var(--fg666);font-weight:650}
+#week .dc.on .dtot .dtr b{font-size:1.12rem;color:var(--fg036);font-variant-numeric:tabular-nums;font-weight:750}
+details.wsumbox{margin-top:4px}
+details.wsumbox #wsum{padding:2px 12px 12px}
+details.wsumbox #wsum .wst{margin-top:8px}</style></head><body><main>
 <div class="card" style="display:none" aria-hidden="true"><div class="note">Estimeret nettoløn for perioden</div><div id="net">–</div><div class="note" id="sub"></div></div>
 <div id="sheetbg"></div><div id="hbar" style="display:none"><button id="t_home">⌂ Hjem</button><b id="htitle"></b></div>
 <section id="v_home"><h1>Lønberegner</h1><div class="hs">Vestas · forventet nettoløn</div><div class="hg"><button id="h_cal"><span>📅</span>Kalender</button><button id="h_days"><span>🇩🇰</span>Dage i Danmark</button><button id="h_ud"><span>✈️</span>Udland</button><button id="h_set"><span>⚙</span>Indstillinger</button><button id="h_slip"><span>💰</span>Forventet løn</button></div></section>
 <nav><button id="t_days">Dage</button><button id="t_slip">Forventet lønseddel</button><button id="t_cal" title="Kalender" style="flex:0 0 52px">📅</button><button id="t_set" title="Mine faste oplysninger" style="flex:0 0 52px">⚙</button></nav>
 <section id="v_days">
-<div class="wkh"><div class="pn"><button id="wprev" class="nb" aria-label="Forrige uge">‹</button><div style="text-align:center;flex:1"><div id="dtitle"></div><div id="wdates"></div></div><button id="wnext" class="nb" aria-label="Næste uge">›</button></div>
+<div class="wkh"><div class="pn"><button id="wprev" class="nb" aria-label="Forrige dag">‹</button><div style="text-align:center;flex:1"><div id="dtitle"></div><div id="wdates"></div></div><button id="wnext" class="nb" aria-label="Næste dag">›</button></div>
+<div id="dstrip"></div>
 <label class="x-udl wa">Arbejde i udlandet denne uge<input id="w_a" type="checkbox"></label></div>
-<div id="week" class="card" style="padding:4px 0"></div><div id="wsum" class="card"></div>
+<div id="week" class="card"></div>
+<details class="help wsumbox"><summary>Ugens total</summary><div id="wsum"></div></details>
 <div hidden><span id="psum_p"></span><div id="dsum"></div><button id="dprev"></button><button id="dnext"></button><button id="dmonth"></button><button id="dtoday"></button></div>
 </section>
 
@@ -197,7 +236,7 @@ function sumRow(k){const d=pd(k),D=loadD(),v=D[k]||{},{norm}=dayInfo(d,D,loadW()
 const tt=v.tin&&v.tout&&!v.sd?`${v.tin}–${v.tout}`:(!v.sd&&!ty&&sh?`<span class=ph>${sh.st}–${sh.en}</span>`:"");
 const ot=Math.round((OT.o1+OT.o2)*100)/100,sick=v.sd||(+v.sk>0&&d.getDay()%6);
 {const W=loadW(),A=dayInfo(d,D,W).A,ph=!v.sd&&!ty&&sh&&!(v.tin&&v.tout),fl=[];if(S.xSup&&+v.s)fl.push("<i class=fS>Su</i>");if(S.xKm&&+v.km)fl.push("<i class=fK>K</i>");
-for(const [f,dv] of [["tin",sh&&sh.st],["tout",sh&&sh.en]]){const el=c.querySelector(`.dr [data-f="${f}"]`);if(!el)continue;el.placeholder=v.sd||ty||!dv?"":dv;el.disabled=!!v.sd;if(el!==document.activeElement)el.value=v[f]||"";}{const u=c.querySelector(".ua");if(u)u.checked=!!A;}{const g=rgOf(v),[x1,x2]=A&&!g.full?splitW(v):[0,0],z=x=>x?fmt(Math.round(x*100)/100):"";const cs=c.querySelectorAll(".dr .cc");if(cs.length){cs[0].textContent=z(x1);cs[1].textContent=z(x2);cs[2].textContent=A?z(g.rj):"";cs[3].textContent=A?z(g.gt):"";}}c.querySelector(".fl").innerHTML=fl.join("");}if(typeof weekSum=="function")weekSum();{const A2=S.xUdland&&dayInfo(d,D,loadW()).A;c.classList.toggle("oth",S.xUdland&&(DMODE=="dk"?A2:!A2)&&!!(v.tin||v.tout||v.a));}c.querySelector(".rt").innerHTML=(S.xUdland&&DMODE=="dk"&&dayInfo(d,D,loadW()).A&&(v.tin||v.a=="1")?`<span class="bd bu">Udland</span>`:"")+(S.xUdland&&DMODE=="ud"&&!dayInfo(d,D,loadW()).A&&(v.tin||v.a=="0")?`<span class="bd bu">DK</span>`:"")+(ty?`<span class="bd ${ty=="hellig"?"bh":"bf"}">${ty=="hellig"?"Helligdag":"Ferie"}</span>`:"")+(sick?`<span class="bd bs">Syg</span>`:"")+(ot?`<b class=otv>+${fmt(ot).replace(/,00$/,"")} t</b>`:"");}
+for(const [f,dv] of [["tin",sh&&sh.st],["tout",sh&&sh.en]]){const el=c.querySelector(`.dr [data-f="${f}"]`);if(!el)continue;el.placeholder=v.sd||ty||!dv?"":dv;el.disabled=!!v.sd;if(el!==document.activeElement)el.value=v[f]||"";}{const u=c.querySelector(".ua");if(u)u.checked=!!A;}{const g=rgOf(v),[x1,x2]=A&&!g.full?splitW(v):[0,0],z=x=>x?fmt(Math.round(x*100)/100):"";const cs=c.querySelectorAll(".dr .cc");if(cs.length){cs[0].textContent=z(x1);cs[1].textContent=z(x2);cs[2].textContent=A?z(g.rj):"";cs[3].textContent=A?z(g.gt):"";}}c.querySelector(".fl").innerHTML=fl.join("");}if(typeof weekSum=="function")weekSum();{const A2=S.xUdland&&dayInfo(d,D,loadW()).A;c.classList.toggle("oth",S.xUdland&&(DMODE=="dk"?A2:!A2)&&!!(v.tin||v.tout||v.a));}c.querySelector(".rt").innerHTML=(S.xUdland&&DMODE=="dk"&&dayInfo(d,D,loadW()).A&&(v.tin||v.a=="1")?`<span class="bd bu">Udland</span>`:"")+(S.xUdland&&DMODE=="ud"&&!dayInfo(d,D,loadW()).A&&(v.tin||v.a=="0")?`<span class="bd bu">DK</span>`:"")+(ty?`<span class="bd ${ty=="hellig"?"bh":"bf"}">${ty=="hellig"?"Helligdag":"Ferie"}</span>`:"")+(sick?`<span class="bd bs">Syg</span>`:"")+(ot?`<b class=otv>+${fmt(ot).replace(/,00$/,"")} t</b>`:"");{const dt=$("dt_"+k);if(dt)dt.innerHTML=dayTot(k);}if(typeof paintStrip=="function")paintStrip();}
 function diaetDay(v){if(!S.xDiaet)return{h:0,ex:0,base:0,red:0,lo:0,amt:0,n:0};let ex=+v.dh||0;if(v.rs&&v.re){let a=tm(v.rs),b=tm(v.re);if(b<=a)b+=1440;ex=Math.ceil((b-a)/60-1e-9);}
 const h=(v.d?24:0)+ex,base=h/24*S.diaetRate,n=(v.mb?1:0)+(v.ml?1:0)+(v.ma?1:0),red=h?Math.min(base,((v.mb?+S.mbPct:0)+(v.ml?+S.mlPct:0)+(v.ma?+S.maPct:0))/100*S.diaetRate):0,lo=S.logiOn&&v.lo?+S.logiRate:0,rr=x=>Math.round(x*100)/100;return{h,ex,base:rr(base),red:rr(red),lo,amt:rr(base-red+lo),n};}
 function dnText(k){const x=diaetDay(loadD()[k]||{});if(!x.h&&!x.lo)return "Ingen diæt denne dag";return `Diæt: ${x.h>=24?Math.floor(x.h/24)+" døgn":""}${x.h%24||x.h<24?(x.h>=24?" + ":"")+(x.h%24)+" påbeg. t":""} = ${fmt(x.base)} kr`+(x.red?` − måltider ${fmt(x.red)}`:"")+(x.lo?` + logi ${fmt(x.lo)}`:"")+` → <b>${fmt(x.amt)} kr</b>`;}
@@ -215,9 +254,17 @@ if(t.sk)R.push(["Sygdom",t.sk]);if(S.xSup&&t.s)R.push(["Supervisor",t.s]);const 
 el.innerHTML=`<b class=wst>I alt uge ${isoWeek(m).w}</b><table class=wsT>`+R.map(([a,b])=>`<tr><td>${a}</td><td class=n>${f(b)} t</td></tr>`).join("")+(S.xKm&&t.km?`<tr><td>Kørsel</td><td class=n>${f(t.km)} km</td></tr>`:"")+(S.xDiaet&&t.di?`<tr><td>Diæt</td><td class=n>${f(t.di)} kr</td></tr>`:"")+`<tr class=sum><td>I alt timer (norm + OT)</td><td class=n>${f(tot)} t</td></tr></table>`;}
 function updOT(k){k=k||iso(CUR);{const dn=$("dn_"+k);if(dn)dn.innerHTML=dnText(k);}k=k||iso(CUR);const el=$("ot_"+k);if(el)el.textContent=otText(k);sumRow(k);}
 const NF=(k,f,l,c)=>`<label${c?` class="${c}"`:""}>${l}<input type=number step=any min=0 inputmode=decimal data-k="${k}" data-f="${f}"></label>`;
-function dayCard(k,d,today){const wd=d.getDay()%6,v=loadD()[k]||{},sh=offDay(d,loadD())?null:shiftOf(d);return `<div class="dc ${wd?"wd":"we"} ${k==today?"today":""} ${OPEN==k?"open":""}" id="dc_${k}" data-k="${k}">
-<div class=dr data-row="${k}"><b>${WD[d.getDay()].slice(0,3).replace(/^./,c=>c.toUpperCase())} ${d.getDate()}.${d.getMonth()+1}.</b><input type=text class="t24 ri" inputmode=numeric lang=da maxlength=5 autocomplete=off data-k="${k}" data-f="tin" aria-label="Ind"><input type=text class="t24 ri" inputmode=numeric lang=da maxlength=5 autocomplete=off data-k="${k}" data-f="tout" aria-label="Ud"><span class=fl></span><span class=rt></span><span class="cc c1"></span><span class="cc c2"></span><span class="cc c3"></span><span class="cc c4"></span><button type=button class=more aria-label="Flere felter">⋯</button></div><div class=dq><label class="x-diaet"><input type=checkbox data-k="${k}" data-f="d">Diæt</label>${wd?`<label class=lsd><input type=checkbox data-k="${k}" data-f="sd">Syg</label>`:""}<label class=x-uo><input type=checkbox data-k="${k}" data-f="rjc">Rejsetid</label><label class=x-uo><input type=checkbox data-k="${k}" data-f="gtc">Garanti</label></div>
-<div class=det><div class=dg2><div class="note" style="grid-column:1/-1">${sh&&!v.tin&&!v.tout?`Tom dag = standard ${sh.st}–${sh.en} (tryk på feltet for at udfylde)`:""}</div><label>Mødt<input type=text class=t24 inputmode=numeric lang=da maxlength=5 placeholder="tt:mm" autocomplete=off data-k="${k}" data-f="tin"></label><label>Gået<input type=text class=t24 inputmode=numeric lang=da maxlength=5 placeholder="tt:mm" autocomplete=off data-k="${k}" data-f="tout"></label>
+const DN=["man","tir","ons","tor","fre","lør","søn"];
+function paintStrip(){const el=$("dstrip");if(!el)return;const D=loadD(),m=weekMon(CUR),today=iso(new Date()),cur=iso(CUR);let h="";
+for(let i=0;i<7;i++){const d=new Date(m);d.setDate(d.getDate()+i);const k=iso(d),v=D[k]||{},mark=!!(v.tin||v.tout||v.sd||+v.sk||v.rjc||v.gtc||+v.o1||+v.o2||+v.s||+v.rj||+v.gt);
+h+=`<button type=button class="db${k==cur?" sel":""}${k==today?" tod":""}" data-day="${k}"><span>${DN[(d.getDay()+6)%7]}</span><b>${d.getDate()}</b><i class="dot${mark?"":" off"}"></i></button>`;}
+el.innerHTML=h;}
+function dayTot(k){const d=pd(k),D=loadD(),W=loadW(),keep=P;P=periodOf(d);const {v,norm,A}=dayInfo(d,D,W),sk=d.getDay()%6?(+v.sk||0):0,RG=rgOf(v),rg=S.xUdland&&A?(RG.full?1e9:RG.rj+RG.gt):0,pay=(periodNorm().ov!=null||(v.tin&&v.tout))?Math.max(0,norm-sk-rg):0,OT=S.xUdland&&A&&RG.full?{o1:0,o2:0}:otOf(v,norm,d,D),[x1,x2]=A&&!RG.full?splitW(v):[0,0];P=keep;const f=x=>fmt(Math.round((+x||0)*100)/100),rows=[["Normaltimer",pay],["Overtid før 18",OT.o1],["Overtid efter 18",OT.o2]];
+if(DMODE=="ud")rows.push(["1080 · 06–18",x1],["1081 · 18–06",x2],["1086 · rejse",A?RG.rj:0],["1087 · garanti",A?RG.gt:0]);
+return `<div class=dth>Dagens timer</div>`+rows.map(([a,b])=>`<div class=dtr><span>${a}</span><b>${f(b)} t</b></div>`).join("");}
+function dayCard(k,d,today){const wd=d.getDay()%6,v=loadD()[k]||{},sh=offDay(d,loadD())?null:shiftOf(d),nm=WD[d.getDay()];return `<div class="dc ${wd?"wd":"we"} ${k==today?"today":""} ${k==iso(CUR)?"on":""} ${OPEN==k?"open":""}" id="dc_${k}" data-k="${k}">
+<div class=dr data-row="${k}"><b>${nm[0].toUpperCase()+nm.slice(1)} ${d.getDate()}. ${MO[d.getMonth()]}</b><label class=il>Ind<input type=text class="t24 ri" inputmode=numeric lang=da maxlength=5 autocomplete=off data-k="${k}" data-f="tin" aria-label="Ind"></label><label class=il>Ud<input type=text class="t24 ri" inputmode=numeric lang=da maxlength=5 autocomplete=off data-k="${k}" data-f="tout" aria-label="Ud"></label><span class=fl></span><span class=rt></span><span class="cc c1"></span><span class="cc c2"></span><span class="cc c3"></span><span class="cc c4"></span><button type=button class=more aria-label="Flere felter">⋯</button></div><div class=dq><label class="x-diaet"><input type=checkbox data-k="${k}" data-f="d">Diæt</label>${wd?`<label class=lsd><input type=checkbox data-k="${k}" data-f="sd">Syg</label>`:""}<label class=x-uo><input type=checkbox data-k="${k}" data-f="rjc">Rejsetid</label><label class=x-uo><input type=checkbox data-k="${k}" data-f="gtc">Garanti</label></div><div class="dtot" id="dt_${k}"></div>
+<div class=det><div class=dg2><div class="note" style="grid-column:1/-1">${sh&&!v.tin&&!v.tout?`Tom dag = standard ${sh.st}–${sh.en} (tryk på feltet for at udfylde)`:""}</div><label class=dup>Mødt<input type=text class=t24 inputmode=numeric lang=da maxlength=5 placeholder="tt:mm" autocomplete=off data-k="${k}" data-f="tin"></label><label class=dup>Gået<input type=text class=t24 inputmode=numeric lang=da maxlength=5 placeholder="tt:mm" autocomplete=off data-k="${k}" data-f="tout"></label>
 ${wd?`${NF(k,"sk","Sygdom (timer)")}<label class=cb><input type=checkbox data-k="${k}" data-f="sd">Syg hele dagen</label>`:""}
 <label>Dagtype<select data-k="${k}" data-f="typ"><option value="">Auto</option><option value="arb">Arbejdsdag</option><option value="ferie">Feriedag</option><option value="hellig">Helligdag</option></select></label>
 ${NF(k,"s","Supervisor (timer)","x-sup")}${NF(k,"km","Kørsel (km)","x-km")}
@@ -226,7 +273,7 @@ ${NF(k,"s","Supervisor (timer)","x-sup")}${NF(k,"km","Kørsel (km)","x-km")}
 <div class=ot id="ot_${k}"></div></div></div>`;}
 function renderDays(){const D=loadD(),W=loadW(),m=weekMon(CUR),su=new Date(m);su.setDate(su.getDate()+6);const today=iso(new Date());
 $("dtitle").textContent="Uge "+isoWeek(m).w;$("wdates").textContent=dk(m).slice(0,5)+" – "+dk(su);$("w_a").checked=wAb(W[wkey(m)]||{});
-let h="";for(let i=0;i<7;i++){const d=new Date(m);d.setDate(d.getDate()+i);h+=dayCard(iso(d),d,today);}$("week").innerHTML=(DMODE=="ud"?`<div class=wh><span>Dag</span><span>Ind</span><span>Ud</span><span class=cc>1080<br><small>06–18</small></span><span class=cc>1081<br><small>18–06</small></span><span class=cc>1086<br><small>rejse</small></span><span class=cc>1087<br><small>garanti</small></span><span></span></div>`:`<div class=wh><span>Dag</span><span>Ind</span><span>Ud</span><span></span><span>OT</span><span></span></div>`)+h;
+let h="";for(let i=0;i<7;i++){const d=new Date(m);d.setDate(d.getDate()+i);h+=dayCard(iso(d),d,today);}$("week").innerHTML=h;paintStrip();
 for(let i=0;i<7;i++){const d=new Date(m);d.setDate(d.getDate()+i);const k=iso(d),v=D[k]||{},ty=dayTyp(k,v),c=$("dc_"+k);
 if(ty)c.classList.add(ty=="hellig"?"hol":"fer");
 c.querySelectorAll("[data-f]").forEach(el=>{const f=el.dataset.f;if(el.type=="checkbox")el.checked=!!v[f];else el.value=v[f]??"";});updOT(k);}
@@ -281,7 +328,7 @@ if(el.classList.contains("ua")){setDay("a",el.checked?"1":"0",k);renderDays();}e
 else if(el.tagName=="SELECT"){setDay(f,el.value,k);renderDays();}else if(el.classList.contains("t24")){if(!T24ok(el.value))return;setDay(f,el.value,k);updOT(k);}else{setDay(f,el.value===""?"":parseFloat(el.value)||0,k);updOT(k);}render();}
 $("week").addEventListener("focusin",e=>{window._tr=e.isTrusted;const el=e.target;if(!el.classList.contains("t24")||!el.dataset.k)return;const k=el.dataset.k,d=pd(k),D=loadD(),v=D[k]||{};if(v.tin||v.tout||offDay(d,D))return;const sh=shiftOf(d);if(!sh)return;
 setDay("tin",sh.st,k);setDay("tout",sh.en,k);const c=$("dc_"+k);c.querySelector('[data-f="tin"]').value=sh.st;c.querySelector('[data-f="tout"]').value=sh.en;CUR=d;P=periodOf(CUR);updOT(k);render();});
-$("week").addEventListener("click",e=>{if(e.target.closest(".dr input,.dq"))return;const r=e.target.closest(".dr");if(!r)return;const k=r.dataset.row;const prev=OPEN;OPEN=OPEN==k?null:k;document.querySelectorAll("#week .dc.open").forEach(c=>c.classList.remove("open"));if(OPEN){$("dc_"+OPEN).classList.add("open");CUR=pd(k);P=periodOf(CUR);}sheetHdr();});
+$("week").addEventListener("click",e=>{if(e.target.closest(".dr input,.dq,label,select,button"))return;const r=e.target.closest(".dr");if(!r)return;const k=r.dataset.row;const prev=OPEN;OPEN=OPEN==k?null:k;document.querySelectorAll("#week .dc.open").forEach(c=>c.classList.remove("open"));if(OPEN){$("dc_"+OPEN).classList.add("open");CUR=pd(k);P=periodOf(CUR);}sheetHdr();});
 $("week").addEventListener("input",onWeek);$("week").addEventListener("change",onWeek);
 $("np_ov").addEventListener("change",e=>{const k="lb_po_"+iso(SP);if(e.target.value==="")localStorage.removeItem(k);else localStorage.setItem(k,JSON.stringify({normOverride:parseFloat(e.target.value)||0}));renderDays();render();});
 let YR=CUR.getFullYear(),MV=new Date(CUR.getFullYear(),CUR.getMonth(),1);
@@ -326,15 +373,19 @@ $("prev").onclick=()=>goSP(-1);$("next").onclick=()=>goSP(1);
 $("psel").addEventListener("change",e=>{const [y,m,d]=e.target.value.split("-").map(Number);SP=new Date(y,m-1,d);renderSlip();});
 {let x0=null,y0=null;const el=$("v_slip");el.addEventListener("touchstart",e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
 el.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>60&&Math.abs(dy)<Math.abs(dx)*0.6)goSP(dx<0?1:-1);});}
-function goDay(d){CUR=new Date(d.getFullYear(),d.getMonth(),d.getDate());P=periodOf(CUR);renderDays();render();}
-$("dprev").onclick=()=>goDay(new Date(CUR.getFullYear(),CUR.getMonth(),CUR.getDate()-1));
-$("dnext").onclick=()=>goDay(new Date(CUR.getFullYear(),CUR.getMonth(),CUR.getDate()+1));
-$("wprev").onclick=()=>goDay(new Date(CUR.getFullYear(),CUR.getMonth(),CUR.getDate()-7));
-$("wnext").onclick=()=>goDay(new Date(CUR.getFullYear(),CUR.getMonth(),CUR.getDate()+7));
+let daySwipe=false;$("v_days").addEventListener("click",e=>{if(daySwipe)return;const b=e.target.closest("[data-day]");if(!b)return;goDay(pd(b.dataset.day));});
+{let x0=null,y0=null;const el=$("v_days");el.addEventListener("touchstart",e=>{if(e.target.closest("input,select,textarea")){x0=null;return;}x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+el.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>56&&Math.abs(dy)<Math.abs(dx)*0.6){daySwipe=true;setTimeout(()=>daySwipe=false,400);shiftDay(dx<0?1:-1);}});}
+function goDay(d){closeSheet();CUR=new Date(d.getFullYear(),d.getMonth(),d.getDate());P=periodOf(CUR);renderDays();render();}
+function shiftDay(n){goDay(new Date(CUR.getFullYear(),CUR.getMonth(),CUR.getDate()+n));}
+$("dprev").onclick=()=>shiftDay(-1);
+$("dnext").onclick=()=>shiftDay(1);
+$("wprev").onclick=()=>shiftDay(-1);
+$("wnext").onclick=()=>shiftDay(1);
 $("dtoday").onclick=()=>{goDay(new Date());const c=$("dc_"+iso(CUR));if(c)c.scrollIntoView({block:"center"});};
 $("reset").onclick=()=>{if(!confirm("Nulstil alle faste oplysninger til standard?"))return;S=Object.assign({},DEF);saveS();buildSettings();renderDays();render();};
 $("rst_mt").onclick=()=>{if(!confirm("Slet alle indtastede IND/UD-tider og sæt mødetider tilbage til standard?"))return;const D=loadD();for(const k of Object.keys(D)){const v=D[k];if(!v||typeof v!="object")continue;delete v.tin;delete v.tout;if(!Object.keys(v).length)delete D[k];}storeD(D);["shMTs","shMTe","shFs","shFe"].forEach(k=>S[k]=DEF[k]);saveS();buildSettings();renderDays();render();document.querySelectorAll("#ymonths [data-m]").forEach(el=>{const k=el.dataset.m,c=$("cmp_"+k);if(c)c.textContent=cmpTxt(k,+k.slice(0,4),+k.slice(5)-1);});alert("Mødetider er nulstillet, og alle IND/UD-tider er slettet.");};
-let DMODE="dk";function setMode(m){DMODE=m;if(m=="ud"&&!S.xUdland){S.xUdland=true;saveS();buildSettings();}$("v_days").className="m-"+m;closeSheet();renderDays();render();show("days");}
+let DMODE="dk";function setMode(m){DMODE=m;if(m=="ud"&&!S.xUdland){S.xUdland=true;saveS();buildSettings();}CUR=new Date();CUR.setHours(0,0,0,0);P=periodOf(CUR);$("v_days").className="m-"+m;closeSheet();renderDays();render();show("days");}
 const HT={days:"Dage",slip:"Forventet løn",set:"Indstillinger",adv:"Indstillinger",year:"Kalender",month:"Kalender"};
 function show(v){if(v!="days")closeSheet();$("hbar").style.display=v=="home"?"none":"";$("htitle").textContent=v=="days"?(DMODE=="ud"?"Udland":"Dage i Danmark"):(HT[v]||"");scrollTo(0,0);["home","days","slip","set","adv","year","month"].forEach(x=>{$("v_"+x).style.display=x==v?"":"none";});["days","slip","set","cal"].forEach(x=>$("t_"+x).className=(x==v||(x=="cal"&&(v=="year"||v=="month"))||(x=="set"&&v=="adv"))?"":"off");}
 ["days","slip","set"].forEach(x=>$("t_"+x).onclick=()=>{if(x=="set")renderYear();show(x);});

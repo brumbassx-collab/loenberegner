@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="da"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lønberegner</title><script>function applyTheme(){const t=localStorage.getItem("lb_theme")||"auto";document.documentElement.dataset.theme=(t=="dark"||(t=="auto"&&matchMedia("(prefers-color-scheme: dark)").matches))?"dark":"light";}applyTheme();matchMedia("(prefers-color-scheme: dark)").addEventListener("change",applyTheme);</script><style>
+:root{--bd036:#036;--bd0a6:#0a6;--bd333:#333;--bdc60:#c60;--bdccc:#ccc;--bdccd:#ccd;--bdddd:#ddd;--bddde:#dde;--bdeee:#eee;--bdeef0f3:#eef0f3;--bg036:#036;--bg0a6:#0a6;--bg567:#567;--bg9ab:#9ab;--bgbbb:#bbb;--bgc60:#c60;--bge6f6ee:#e6f6ee;--bge8f2ff:#e8f2ff;--bgeef:#eef;--bgeef2f7:#eef2f7;--bgf2f4f7:#f2f4f7;--bgf7f7f7:#f7f7f7;--bgf8faff:#f8faff;--bgfbd0d0:#fbd0d0;--bgfbf8f4:#fbf8f4;--bgfbfdff:#fbfdff;--bgfdd:#fdd;--bgfde2e2:#fde2e2;--bgfdf1f1:#fdf1f1;--bgffd8a8:#ffd8a8;--bgffe0bd:#ffe0bd;--bgfff:#fff;--bgfff4e0:#fff4e0;--bgfff6ec:#fff6ec;--fg036:#036;--fg0a6:#0a6;--fg222:#222;--fg333:#333;--fg555:#555;--fg666:#666;--fg777:#777;--fg888:#888;--fg954:#954;--fg999:#999;--fga00:#a00;--fga50:#a50;--fgaaa:#aaa;--fgb00:#b00;--fgbbb:#bbb;--fgc00:#c00;--fgc60:#c60;--fgfff:#fff}
+html[data-theme=dark]{color-scheme:dark;--bd036:#5aa0ff;--bd0a6:#2fd18f;--bd333:#808080;--bdc60:#ff9a3c;--bdccc:#616161;--bdccd:#48486c;--bdddd:#535353;--bddde:#333366;--bdeee:#464646;--bdeef0f3:#38414f;--bg036:#1d5fa8;--bg0a6:#0b8a59;--bg567:#4b5a6b;--bg9ab:#3a4654;--bgbbb:#898989;--bgc60:#b35a00;--bge6f6ee:#1d5137;--bge8f2ff:#152b48;--bgeef:#131341;--bgeef2f7:#1f2e41;--bgf2f4f7:#0e1116;--bgf7f7f7:#292929;--bgf8faff:#0f1a34;--bgfbd0d0:#6b1f1f;--bgfbf8f4:#3b2b15;--bgfbfdff:#0e1f30;--bgfdd:#561919;--bgfde2e2:#521818;--bgfdf1f1:#3f1212;--bgffd8a8:#97672c;--bgffe0bd:#7d5424;--bgfff:#1a1f27;--bgfff4e0:#523d18;--bgfff6ec:#432d13;--fg036:#b3d9ff;--fg0a6:#6fffc5;--fg222:#e6e6e6;--fg333:#d9d9d9;--fg555:#b7b7b7;--fg666:#adadad;--fg777:#adadad;--fg888:#adadad;--fg954:#cd9b8e;--fg999:#adadad;--fga00:#ff6f6f;--fga50:#ffb76f;--fgaaa:#adadad;--fgb00:#ff5e5e;--fgbbb:#adadad;--fgc00:#ff5c5c;--fgc60:#ffae5c;--fgfff:#fff}
+html[data-theme=dark] input,html[data-theme=dark] select{background:#11151b;color:#e8ecf2;border-color:#3a4452}html[data-theme=dark] .mc .dn,html[data-theme=dark] .hg button{color:#fff}
+
+body{font-family:system-ui,sans-serif;margin:0;background:var(--bgf2f4f7);color:var(--fg222)}main{max-width:720px;margin:auto;padding:10px}
+.card{background:var(--bgfff);border-radius:12px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px #0002}
+h1{font-size:1.15em;margin:4px 0}#net{font-size:2.4em;font-weight:700;color:var(--fg0a6)}
+nav{display:flex;gap:6px;margin-bottom:10px}nav button{flex:1}
+button{padding:10px 12px;font-size:1em;border:0;border-radius:8px;background:var(--bg036);color:var(--fgfff)}button.off{background:var(--bg9ab)}
+.pn{display:flex;justify-content:space-between;align-items:center}
+input,select{padding:7px;font-size:1em;border:1px solid var(--bdccc);border-radius:6px;text-align:right;width:70px}
+table{width:100%;border-collapse:collapse;font-size:.85em}td,th{padding:4px 3px;border-bottom:1px solid var(--bdeee)}th{text-align:left;background:var(--bgeef)}
+.n{text-align:right;white-space:nowrap}tr.we td{background:var(--bgf7f7f7);color:var(--fg888)}tr.today td{background:var(--bge6f6ee)}
+.day{border-bottom:1px solid var(--bdddd);padding:6px 0}.day.we{background:var(--bgf7f7f7)}.day.today{background:var(--bge6f6ee)}.dh{font-weight:600;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.dh label{margin:0;font-weight:400}.dg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.dg label{display:block;margin:2px 0;font-size:.75em;color:var(--fg555)}.dg input{width:100%;box-sizing:border-box}.dh input{width:auto}
+.ygrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.yt .pn2{font-size:.9em;margin-top:4px}.yt.ym{cursor:default;background:var(--bgfff)}.yt .cmp{font-size:.72em;color:var(--fg666);margin-top:4px;line-height:1.3}.yt button.use{font-size:.75em;padding:4px 8px;margin-top:4px;background:var(--bgeef2f7);color:var(--fg036)}.yt{border:1px solid var(--bdccd);border-radius:10px;padding:8px;cursor:pointer;background:var(--bgf8faff)}.yt.cur{border-color:var(--bd036);border-width:2px}.yt b{display:block}.yt input{width:100%;box-sizing:border-box;margin-top:4px}
+.mgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:8px}.mh{font-size:.75em;text-align:center;color:var(--fg666)}.mc{min-height:52px;border:1px solid var(--bdddd);border-radius:6px;padding:2px;font-size:.7em;cursor:pointer;background:var(--bgfff)}.mc.hol{background:var(--bgfdd) !important;color:var(--fgb00)}.mc.fer{background:var(--bgffd8a8) !important}.mc .ty{font-size:.85em;font-weight:700}.mc.hol .ty{color:var(--fgb00)}.mc.fer .ty{color:var(--fga50)}.mc.pA{background:var(--bgfff4e0)}.mc.pB{background:var(--bge8f2ff)}.mc.we{color:var(--fg999)}.mc.split{border-left:4px solid var(--bdc60) !important}.mc.pre{border-right:4px solid var(--bdc60)}.mc .pl{font-size:.85em;color:var(--fgc60);font-weight:700;line-height:1.1}.mc.today{border:2px solid var(--bd0a6)}.mc.has{box-shadow:inset 0 0 0 2px var(--bd036)}.mc .dn{font-weight:700;font-size:1.2em}.mc .mk{color:var(--fg036);line-height:1.2}
+.sw{position:relative;display:inline-block;width:50px;height:28px;flex:0 0 50px}.sw input{opacity:0;width:0;height:0}.sw span{position:absolute;inset:0;background:var(--bgbbb);border-radius:28px;transition:.2s}.sw span:before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;background:var(--bgfff);border-radius:50%;transition:.2s}.sw input:checked+span{background:var(--bg0a6)}.sw input:checked+span:before{transform:translateX(22px)}
+.tg{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--bdeee);font-size:1.05em}
+button.row{display:flex;justify-content:space-between;width:100%;margin:10px 0 0;background:var(--bgeef2f7);color:var(--fg036);text-align:left}.gh{font-size:1em;margin:16px 0 4px;color:var(--fg036);border-bottom:1px solid var(--bdccd);padding-bottom:2px}
+#shead{position:sticky;top:0;z-index:5;background:var(--bgfff);padding:6px 0 8px;border-bottom:2px solid var(--bd036);margin-bottom:8px}#ppay{font-size:.85em}button.big{font-size:2em;padding:4px 18px;line-height:1}
+.cs{table-layout:fixed;width:100%;font-size:.88em}.cs td{padding:5px 2px;vertical-align:top;overflow-wrap:anywhere}.cs td.a{width:8.2em;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}.cs .dt{font-size:.78em;color:var(--fg888);margin-top:1px}.cs tr.sum td{font-weight:700;font-size:1.02em}.cs tr.sum .dt{font-weight:400}
+.wkh{padding:4px 2px 10px}.wkh #dtitle{font-size:1.4em;font-weight:700}.wkh #wdates{font-size:.85em;color:var(--fg777)}button.nb{background:transparent;color:var(--fg036);font-size:1.8em;padding:2px 14px;line-height:1}.wkh .wa{font-size:.9em;margin:6px 4px 0}
+.dc{border-bottom:1px solid var(--bdeef0f3)}.dc:last-child{border-bottom:0}.dc.wd{background:var(--bgfbfdff)}.dc.we{background:var(--bgfbf8f4)}.dc.hol{background:var(--bgfdf1f1)}.dc.fer{background:var(--bgfff6ec)}.dc.today{box-shadow:inset 4px 0 0 var(--bd0a6)}
+.dr{display:grid;grid-template-columns:6.4em 1fr auto;align-items:center;gap:8px;padding:12px 14px;cursor:pointer;min-height:24px}.dr b{font-weight:600;white-space:nowrap}.dr .tt{color:var(--fg222);font-variant-numeric:tabular-nums}.dr .ph{color:var(--fgbbb)}.dr .rt{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.otv{color:var(--fg036);font-variant-numeric:tabular-nums}.bd{font-size:.72em;padding:2px 7px;border-radius:10px;font-weight:600}.bs{background:var(--bgfde2e2);color:var(--fga00)}.bh{background:var(--bgfbd0d0);color:var(--fga00)}.bf{background:var(--bgffe0bd);color:var(--fg954)}
+.det{display:none;padding:0 14px 14px}.dc.open .det{display:block}.dc.open .dr{padding-bottom:6px}
+.dg2{display:grid;grid-template-columns:1fr 1fr;gap:10px 12px}.dg2 label{display:block;margin:0;font-size:.78em;color:var(--fg666)}.dg2 input[type=time],.dg2 input[type=number],.dg2 select{width:100%;box-sizing:border-box;padding:8px;font-size:1.05em;border:1px solid var(--bddde);border-radius:8px;text-align:left;background:var(--bgfff)}
+.dg2 label.cb{display:flex;align-items:center;gap:8px;font-size:.9em;color:var(--fg333);padding-top:16px}.dg2 label.cb input{width:auto}.dc .ot{font-size:.8em;color:var(--fg777);margin-top:10px}
+tr.sum td{font-weight:700;border-top:2px solid var(--bd333)}.note{font-size:.8em;color:var(--fg666)}
+.slip{overflow-x:auto}label{display:flex;justify-content:space-between;align-items:center;margin:6px 0;gap:8px}label input{width:130px}
+input::placeholder{color:var(--fgaaa)}
+nav{display:none}#hbar{display:flex;align-items:center;gap:10px;margin:0 0 8px}#hbar button{padding:8px 12px}#hbar b{font-size:1.1em;color:var(--fg036)}
+#v_home h1{font-size:1.5em;text-align:center;margin:10px 0 2px}#v_home .hs{text-align:center;color:var(--fg666);font-size:.9em;margin-bottom:14px}
+.hg{display:grid;grid-template-columns:1fr 1fr;gap:12px}.hg button{aspect-ratio:1/1;max-height:38vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:1.15em;font-weight:600;border-radius:16px;background:var(--bg036)}.hg button span{font-size:2.2em;line-height:1}.hg button:nth-child(2){background:var(--bg0a6)}.hg button:nth-child(3){background:var(--bg567)}.hg button:nth-child(4){background:var(--bgc60)}
+.wkh{padding:0 2px 4px}.wkh #dtitle{font-size:1.2em}.wkh .wa{margin:2px 4px 0;font-size:.85em}
+.dr{padding:0 12px;min-height:0;height:min(52px,calc((100vh - 190px)/7));box-sizing:border-box}
+.det{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bgfff);border-radius:16px 16px 0 0;box-shadow:0 -4px 20px #0004;max-height:82vh;overflow:auto;padding:0 16px 20px;max-width:720px;margin:auto}.dc.open .dr{padding-bottom:0}
+.shh{display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bgfff);padding:12px 0 10px;margin-bottom:6px;border-bottom:1px solid var(--bdeee)}.shh b{font-size:1.15em}.shh button{padding:8px 16px}
+#sheetbg{display:none;position:fixed;inset:0;background:#0006;z-index:55}#sheetbg.on{display:block}</style></head><body><main>
+<div class="card" style="display:none" aria-hidden="true"><div class="note">Estimeret nettoløn for perioden</div><div id="net">–</div><div class="note" id="sub"></div></div>
+<div id="sheetbg"></div><div id="hbar" style="display:none"><button id="t_home">⌂ Hjem</button><b id="htitle"></b></div>
+<section id="v_home"><h1>Lønberegner</h1><div class="hs">Vestas · forventet nettoløn</div><div class="hg"><button id="h_cal"><span>📅</span>Kalender</button><button id="h_days"><span>🗓</span>Dage</button><button id="h_set"><span>⚙</span>Indstillinger</button><button id="h_slip"><span>💰</span>Forventet løn</button></div></section>
+<nav><button id="t_days">Dage</button><button id="t_slip">Forventet lønseddel</button><button id="t_cal" title="Kalender" style="flex:0 0 52px">📅</button><button id="t_set" title="Mine faste oplysninger" style="flex:0 0 52px">⚙</button></nav>
+<section id="v_days">
+<div class="wkh"><div class="pn"><button id="wprev" class="nb" aria-label="Forrige uge">‹</button><div style="text-align:center;flex:1"><div id="dtitle"></div><div id="wdates"></div></div><button id="wnext" class="nb" aria-label="Næste uge">›</button></div>
+<label class="x-udl wa">Arbejde i udlandet denne uge<input id="w_a" type="checkbox"></label></div>
+<div id="week" class="card" style="padding:4px 0"></div>
+<div hidden><span id="psum_p"></span><div id="dsum"></div><button id="dprev"></button><button id="dnext"></button><button id="dmonth"></button><button id="dtoday"></button></div>
+</section>
+
+<section id="v_slip" class="card slip"><div id="shead"><div class="pn"><button id="prev" class="big" aria-label="Forrige periode">‹</button><div style="text-align:center;flex:1"><div id="plabel" style="font-weight:700;font-size:clamp(1.25em,6.5vw,1.9em);line-height:1.1;white-space:nowrap"></div><div id="ppay" class="note"></div><div id="snet" style="font-size:1.5em;font-weight:700;color:var(--fg0a6)"></div></div><button id="next" class="big" aria-label="Næste periode">›</button></div>
+<select id="psel" hidden></select></div>
+<div id="slipHead" hidden></div>
+<div hidden><h1 style="font-size:1em">Normtimer i lønperioden <span id="np_p" class="note"></span></h1>
+<div id="np_calc" class="note"></div>
+<label>Overstyr periodens normtimer<input id="np_ov" type="number" step="any" min="0" inputmode="decimal" placeholder="beregnet"></label>
+<button id="go_year" class="off" style="padding:6px 10px;font-size:.85em">📅 Indtast normtimer i kalenderen</button></div><table class="cs"><tbody id="slip"></tbody></table>
+<p class="note">Dette er et skøn – den endelige løn fremgår af lønsedlen fra Vestas.</p></section>
+<section id="v_year" class="card"><div class="pn"><button id="yprev">‹</button><b id="ylabel" style="font-size:1.3em"></b><button id="ynext">›</button></div>
+<p class="note">Lønperioder (15.–14.), opkaldt efter udbetalingsmåneden som på lønsedlen. Tryk på en periode for at se dens dage.</p><div id="yper" class="ygrid"></div>
+<h2 class="gh">Normtimer pr. kalendermåned</h2><div id="yro"></div><button id="go_norm" class="row">Ret normtimer i Indstillinger <span>›</span></button></section>
+<section id="v_month" class="card"><div class="pn"><button id="mback">‹ År</button><div style="text-align:center;flex:1"><b id="mlabel" style="font-size:1.3em"></b><div id="msub" class="note"></div></div><span style="width:50px"></span></div>
+<div class="mgrid" id="mgrid"></div><p class="note" id="mlegend2"></p><p class="note" id="mlegend"></p></section>
+<section id="v_set" class="card"><h1>Indstillinger</h1><p class="note">Vælg hvilke ekstra felter der vises på dagen.</p><div class="tg"><span>Tema</span><select id="theme" style="width:auto;text-align:left"><option value="light">Lyst</option><option value="dark">Mørkt</option><option value="auto">Følg telefon</option></select></div><div id="toggles"></div>
+<h2 class="gh" id="mtsec">Standard mødetider og pauser</h2><p class="note">Bruges som Mødt/Gået, når en dag er tom, og som grænse for overtid (før/efter normal vagt). Pauser trækkes kun fra den normale arbejdstid – ikke fra overtid.</p><div id="mtid"></div><h2 class="gh" id="normsec">Normtimer pr. kalendermåned</h2><p class="note">Fra firmaets kalender. Periodens norm = summen af de daglige normtimer (månedens norm fordelt på dens arbejdsdage). "Brug beregnet" indsætter normen ud fra vagttiderne.</p><div class="pn" style="margin:6px 0"><button id="nyprev" class="nb">‹</button><b id="nylabel" style="font-size:1.2em"></b><button id="nynext" class="nb">›</button></div><div id="ymonths" class="ygrid"></div>
+<button id="go_adv" class="row">Særlige indstillinger <span>›</span></button></section>
+<section id="v_adv" class="card"><div class="pn"><button id="adv_back">‹ Tilbage</button><b>Særlige indstillinger</b><span style="width:60px"></span></div>
+<p class="note">Indtastes én gang og gemmes på enheden.</p><div id="settings"></div><h2 class="gh">Nulstil</h2><button id="reset">Nulstil til standard</button>
+<p class="note"><b>Pensionsgrundlag:</b> AMP (2 %) beregnes af et pensionsgrundlag, som ikke er lig bruttolønnen (lønsedlen 15.08–14.09.2026: 82.268,38 mod brutto 63.722,35). Er "Pensionsgrundlag, fast" 0, bruges brutto × pensionsfaktor (standard 1 = brutto; find din egen faktor som pensionsgrundlag ÷ bruttoløn på lønsedlen, fx 82.268,38 / 63.722,35 ≈ 1,2910).<br>
+<b>Skattepligtigt tillæg:</b> Hvis lønsedlens "Samlet løn før skat" er højere end brutto − AMP − ATP, kan forskellen indtastes her som et skattepligtigt, ikke-udbetalt beløb (standard 0).<br>
+<b>Periode:</b> Lønperioden løber fra den 15. til den 14. i næste måned (månedsperiode); udbetaling ca. periodeslut + 15 dage. Fradraget er pr. måned jf. skattekortet.<br>
+A-skat: grundlag rundes ned til nærmeste 10 kr, skat rundes op til hele kr. Lønartskoder uden kendt nummer kan rettes her.</p></section>
+</main>
+<div id="wiz" style="display:none;position:fixed;inset:0;background:#0008;align-items:center;justify-content:center;padding:16px"><div class="card" style="max-width:420px;width:100%">
+<h1>Velkommen – kom i gang</h1><p class="note">Find tallene på dit skattekort eller din seneste lønseddel. Alt kan ændres senere under ⚙ Mine faste oplysninger.</p>
+<label>Trækprocent (%)<input id="w_tax" inputmode="decimal" placeholder="fx 41"></label><label>Fradrag pr. periode (måned, kr)<input id="w_fra" inputmode="decimal" placeholder="fx 8592"></label><label>Timesats Danmark (kr)<input id="w_dom" inputmode="decimal" placeholder="fx 208,04"></label><p class="note">Timesats udland beregnes automatisk: Danmark × 1,37.</p><p id="w_err" class="note" style="color:var(--fgc00)"></p>
+<button id="w_ok" style="width:100%;margin-top:8px">Gem og fortsæt</button></div></div><script>const DEF={taxPct:41,fradrag:8592,rateDom:208.04,rate:285.01,ot1:1.13,ot2:1.13,supRate:0,sickMode:"dag",sickDay:7.4,brk:0.5,shMTs:"06:55",shMTe:"15:15",shFs:"06:55",shFe:"13:55",b1s:"08:35",b1m:15,b2s:"11:35",b2m:25,bPaid:0,abroadDefault:true,xDiaet:false,xUdland:false,xKm:false,xSup:false,kmRate:3.94,diaetRate:625,mbPct:15,mlPct:30,maPct:30,logiOn:false,logiRate:268,
+ampPct:2,pensBase:0,pensFactor:1,atp:99,amPct:8,taxAdj:0,forening:0,fritvalgOn:false,fritvalg:0,
+c_norm:"2020",c_dom:"",c_sick:"",c_ot:"2324",c_ot2:"",c_otd1:"",c_otd2:"",c_sup:"5322",c_fv1:"/601",c_fv2:"/621",c_brut:"/101",c_amp:"/313",c_atp:"/302",c_before:"/385",c_am:"/311",c_fra:"/443",c_tax:"/440",c_for:"7612",c_km:"",c_diaet:""};
+const LAB={taxPct:"Trækprocent (%)",fradrag:"Fradrag pr. periode (måned)",rateDom:"Timesats Danmark (kr) – udland = × 1,37",rate:"Timesats udland (kr)",ot1:"Overtidstillæg før kl. 18 pr. time (DK og udland, tjek overenskomst)",ot2:"Overtidstillæg efter kl. 18 pr. time (DK og udland, tjek overenskomst)",supRate:"Supervisor-sats pr. time",
+sickMode:"Sygdom betales med",sickDay:"Timer pr. hel sygedag",b1s:"Morgenpause start",b1m:"Morgenpause (minutter)",b2s:"Middagspause start",b2m:"Middagspause (minutter)",bPaid:"Betalte pauseminutter pr. dag",shMTs:"Man–tor mødt",shMTe:"Man–tor gået",shFs:"Fredag mødt",shFe:"Fredag gået",abroadDefault:"Nye dage: udland som standard (kun når Arbejde i udlandet er slået til)",kmRate:"Kørsel kr/km (skattefri, 2026: 3,94)",diaetRate:"Diæt kr/døgn (skattefri kost, 2026: 625)",mbPct:"Fri morgenmad – fradrag % af døgnsats (15)",mlPct:"Fri frokost – fradrag % af døgnsats (30)",maPct:"Fri aftensmad – fradrag % af døgnsats (30)",logiOn:"Logi-godtgørelse (hvis du selv betaler overnatning)",logiRate:"Logi kr/nat (2026: 268)",
+ampPct:"AMP medarbejderbidrag (%)",pensBase:"Pensionsgrundlag, fast (0 = auto)",pensFactor:"Pensionsfaktor (grundlag/brutto)",atp:"ATP MA-bidrag pr. periode",amPct:"AM-bidrag (%)",taxAdj:"Skattepligtigt tillæg",forening:"Personaleforening Lindø",fritvalgOn:"Vis fritvalg (netto 0)",fritvalg:"Fritvalg-beløb",
+c_norm:"Kode: Timer udland",c_dom:"Kode: Normaltimer DK",c_sick:"Kode: Sygdom",c_ot:"Kode: Overtid udland (før kl. 18)",c_ot2:"Kode: Overtid udland efter kl. 18",c_otd1:"Kode: Overtid før kl. 18 (DK)",c_otd2:"Kode: Overtid efter kl. 18 (DK)",c_sup:"Kode: Supervisor udland",c_fv1:"Kode: Fritvalgspulje",c_fv2:"Kode: Fritvalg til hensat.",c_brut:"Kode: Bruttoløn i alt",c_amp:"Kode: AMP",c_atp:"Kode: ATP",c_before:"Kode: Samlet løn før skat",c_am:"Kode: AM-bidrag",c_fra:"Kode: Anvendt fradrag",c_tax:"Kode: A-skat",c_for:"Kode: Personaleforening",c_km:"Kode: Kørsel",c_diaet:"Kode: Diæter"};
+const BOOL=["fritvalgOn","abroadDefault","logiOn"];
+const XT={xDiaet:"Diæter",xUdland:"Arbejde i udlandet",xKm:"Kørsel",xSup:"Supervisor timer"},XC={xDiaet:"x-diaet",xUdland:"x-udl",xKm:"x-km",xSup:"x-sup"};
+const GROUPS=[["Skat",["taxPct","fradrag","amPct","taxAdj"]],["Timesatser og overtid",["rateDom","ot1","ot2","supRate","abroadDefault"]],["Sygdom",["sickMode","sickDay"]],["Kørsel og diæter (skattefri)",["kmRate","diaetRate","mbPct","mlPct","maPct","logiOn","logiRate"]],["Pension, ATP og øvrige træk",["ampPct","pensBase","pensFactor","atp","forening","fritvalgOn","fritvalg"]],["Lønartskoder",null]];
+const udR=s=>Math.round((+s.rateDom||0)*1.37*100)/100;
+let S=Object.assign({},DEF,JSON.parse(localStorage.getItem("lb_set")||"{}"));if(S.showExtra&&S.xDiaet===undefined)Object.keys(XT).forEach(k=>S[k]=true);delete S.showExtra;
+const $=id=>document.getElementById(id),fmt=v=>v.toLocaleString("da-DK",{minimumFractionDigits:2,maximumFractionDigits:2});
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const dk=d=>String(d.getDate()).padStart(2,"0")+"."+String(d.getMonth()+1).padStart(2,"0")+"."+d.getFullYear();
+function periodOf(d){let y=d.getFullYear(),m=d.getMonth();if(d.getDate()<15)m--;return new Date(y,m,15);}
+function periodEnd(s){return new Date(s.getFullYear(),s.getMonth()+1,14);}
+let CUR=new Date();CUR.setHours(0,0,0,0);let P=periodOf(CUR);
+const saveS=()=>localStorage.setItem("lb_set",JSON.stringify(S));
+const J=(k,d)=>JSON.parse(localStorage.getItem(k)||d);
+const loadD=()=>J("lb_days","{}"),storeD=o=>localStorage.setItem("lb_days",JSON.stringify(o));
+const MDEF={"2026-07":148.04,"2026-08":74.02,"2026-09":155.46,"2026-10":162.88,"2026-11":162.79,"2026-12":155.46};
+const PAYD={"2026-07-14":"2026-07-30","2026-08-14":"2026-08-28","2026-09-14":"2026-09-29","2026-10-14":"2026-10-29","2026-11-14":"2026-11-27","2026-12-14":"2026-12-29"};
+const HOL=new Set(["2026-12-24","2026-12-25","2026-12-26","2027-01-01"]);
+function payOf(p0){const e=periodEnd(p0),k=PAYD[iso(e)];if(k){const [y,m,d]=k.split("-").map(Number);return{d:new Date(y,m-1,d),known:true};}const x=new Date(e);x.setDate(x.getDate()+15);return{d:x,known:false};}
+const payTxt=p0=>{const q=payOf(p0);return (q.known?"":"ca. ")+dk(q.d);};
+function dayTyp(k,v){const t=v&&v.typ;return t&&t!=""?(t=="arb"?"":t):(HOL.has(k)?"hellig":"");}
+const offDay=(d,D)=>{const t=dayTyp(iso(d),D[iso(d)]);return t=="ferie"||t=="hellig";};
+function wdEff(y,m,D){let n=0;for(let d=new Date(y,m,1);d.getMonth()==m;d.setDate(d.getDate()+1))if(d.getDay()%6&&!offDay(d,D))n++;return n;}
+const loadM=()=>Object.assign({},MDEF,J("lb_months","{}")),storeM=o=>localStorage.setItem("lb_months",JSON.stringify(o));
+const wdIn=(y,m)=>{let n=0;for(let d=new Date(y,m,1);d.getMonth()==m;d.setDate(d.getDate()+1))if(d.getDay()%6)n++;return n;};
+const mkey=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+const loadW=()=>J("lb_weeks","{}"),storeW=o=>localStorage.setItem("lb_weeks",JSON.stringify(o));
+function isoWeek(d){const t=new Date(d.getFullYear(),d.getMonth(),d.getDate());const dn=(t.getDay()+6)%7;t.setDate(t.getDate()-dn+3);const y=t.getFullYear(),f=new Date(y,0,4);return{y,w:1+Math.round(((t-f)/864e5-3+((f.getDay()+6)%7))/7)};}
+const wkey=d=>{const x=isoWeek(d);return x.y+"-W"+String(x.w).padStart(2,"0");};
+function weekMon(d){const t=new Date(d);t.setDate(t.getDate()-(t.getDay()+6)%7);return t;}
+const wAb=w=>w&&w.a!==undefined?w.a:S.abroadDefault;
+function baseNorm(d,M,D){D=D||loadD();if(!(d.getDay()%6)||offDay(d,D))return 0;const n=wdEff(d.getFullYear(),d.getMonth(),D);return n?(+M[mkey(d)]||0)/n:0;}
+function periodNorm(){const M=loadM(),D=loadD(),e=periodEnd(P);let c=0,wd=0;for(let d=new Date(P);d<=e;d.setDate(d.getDate()+1)){c+=baseNorm(d,M,D);if(d.getDay()%6&&!offDay(d,D))wd++;}const ov=J("lb_po_"+iso(P),"null");return{c,wd,ov:ov&&ov.normOverride!=null?ov.normOverride:null};}
+function dayInfo(d,D,W,PN){const v=D[iso(d)]||{},w=W[wkey(d)]||{},M=loadM();PN=PN||periodNorm();const off=offDay(d,D);let norm=baseNorm(d,M,D);if(PN.ov!=null)norm=PN.c>0?norm*PN.ov/PN.c:(d.getDay()%6&&!off?PN.ov/PN.wd:0);
+const A=!S.xUdland?false:(v.a===undefined||v.a===""?wAb(w):v.a=="1");return{v,norm,A,off,typ:dayTyp(iso(d),v)};}
+const tm=x=>{const [h,m]=x.split(":").map(Number);return h*60+m;};
+function brkMin(a,b){let m=0;for(const [st,mi] of [[S.b1s,+S.b1m||0],[S.b2s,+S.b2m||0]]){if(!st||!mi)continue;for(const off of [0,1440]){const p=tm(st)+off,q=p+mi;m+=Math.max(0,Math.min(b,q)-Math.max(a,p));}}return m;}
+const ubrk=(a,b)=>Math.max(0,brkMin(a,b)-(+S.bPaid||0));
+function shiftOf(d){const g=d.getDay();if(g==0||g==6)return null;const fri=g==5,st=fri?S.shFs:S.shMTs,en=fri?S.shFe:S.shMTe;if(!st||!en)return null;return{st,en,a:tm(st),b:tm(en)};}
+function otOf(v,norm,d,D){if(!v.tin||!v.tout)return{o1:+v.o1||0,o2:+v.o2||0,w:null,src:(+v.o1||+v.o2)?"gemt":"ingen"};
+if(v.sd)return{o1:0,o2:0,w:0,src:"syg"};const a=tm(v.tin);let b=tm(v.tout);if(b<=a)b+=1440;const r=x=>Math.round(x*100)/100,brk=ubrk(a,b)/60;
+const w=Math.max(0,(b-a)/60-brk),off=d&&D?offDay(d,D):false,sh=d&&!off?shiftOf(d):null,ov=(x,y,p,q)=>Math.max(0,Math.min(y,q)-Math.max(x,p));
+const span=(b-a)/60;let ot,o2;if(!sh){ot=span;o2=Math.min(ot,ov(a,b,1080,1e9)/60);}
+else{const early=ov(a,b,-1e9,sh.a),late=ov(a,b,sh.b,1e9);ot=Math.min(span,(early+late)/60);o2=Math.min(ot,ov(a,b,Math.max(sh.b,1080),1e9)/60);}
+return{o1:r(ot-o2),o2:r(o2),w:r(w),ot:r(ot),src:"tid",night:b>1440,sh,all:!sh};}
+function totals(){const D=loadD(),W=loadW(),PN=periodNorm(),e=periodEnd(P),t={mred:0,logi:0,nlo:0,mn:0,nU:0,nD:0,sU:0,sD:0,o1:0,o2:0,oU1:0,oU2:0,oD1:0,oD2:0,sDK:0,s:0,km:0,dd:0,dh:0,norm:0};
+for(let d=new Date(P);d<=e;d.setDate(d.getDate()+1)){const {v,norm,A}=dayInfo(d,D,W,PN),sk=d.getDay()%6?(+v.sk||0):0;t.norm+=norm;
+const pay=Math.max(0,norm-sk);if(A)t.nU+=pay;else t.nD+=pay;
+if(S.sickMode!="ubetalt"){const sa=!S.xUdland?false:S.sickMode=="udland"?true:S.sickMode=="dk"?false:A;if(sa)t.sU+=sk;else t.sD+=sk;}
+const OT=otOf(v,norm,d,D);t.o1+=OT.o1;t.o2+=OT.o2;if(A){t.oU1+=OT.o1;t.oU2+=OT.o2;}else{t.oD1+=OT.o1;t.oD2+=OT.o2;}if(S.xUdland){if(A)t.s+=+v.s||0;else t.sDK+=+v.s||0;}t.km+=+v.km||0;{const x=diaetDay(v);t.dd+=v.d?1:0;t.dh+=x.ex;t.mred+=x.red;t.logi+=x.lo;t.nlo+=x.lo?1:0;t.mn+=x.n;}}
+for(const k in t)t[k]=+t[k].toFixed(2);return t;}
+function calc(s,h){const g1=h.nU*udR(s),gD=h.nD*s.rateDom,gSU=h.sU*udR(s),gSD=h.sD*s.rateDom,g2=h.o1*s.ot1,g2b=h.o2*s.ot2,g3=h.s*s.supRate,gross=g1+gD+gSU+gSD+g2+g2b+g3;
+const pb=s.pensBase>0?s.pensBase:gross*(s.pensFactor||1),amp=Math.round(pb*s.ampPct)/100;
+const before=gross-amp-s.atp+s.taxAdj,am=Math.max(0,Math.round(before*s.amPct/100));
+const tb=Math.max(0,Math.floor((before-am-s.fradrag)/10)*10),tax=Math.ceil(tb*s.taxPct/100-1e-9);
+const km=Math.round(h.km*s.kmRate*100)/100,dQty=h.dd+h.dh/24,dKost=Math.round(dQty*s.diaetRate*100)/100,diaet=Math.round((dKost-(h.mred||0)+(h.logi||0))*100)/100;
+const net=gross-amp-s.atp-am-tax-s.forening+km+diaet;return{g1,gD,gSU,gSD,g2,g2b,g3,gross,pb,amp,before,am,tb,tax,km,dQty,dKost,diaet,net};}
+const WD=["søndag","mandag","tirsdag","onsdag","torsdag","fredag","lørdag"],MO=["januar","februar","marts","april","maj","juni","juli","august","september","oktober","november","december"];
+const pd=k=>{const [y,m,d]=k.split("-").map(Number);return new Date(y,m-1,d);};
+let OPEN=null;
+function otText(k){const {v,norm,off,typ}=dayInfo(pd(k),loadD(),loadW()),OT=otOf(v,norm,pd(k),loadD());
+if(OT.src=="tid")return `Arbejdet ${fmt(OT.w)} t${OT.night?" (over midnat)":""}${OT.all?" · alt er overtid":""} · OT ${fmt(OT.o1)} før 18 + ${fmt(OT.o2)} efter 18`;
+if(OT.src=="syg")return "Syg hele dagen";if(OT.src=="gemt")return `Gemt OT ${fmt(OT.o1)} før 18 + ${fmt(OT.o2)} efter 18`;return "";}
+function sumRow(k){const d=pd(k),D=loadD(),v=D[k]||{},{norm}=dayInfo(d,D,loadW()),OT=otOf(v,norm,d,D),ty=dayTyp(k,v),sh=shiftOf(d),c=$("dc_"+k);if(!c)return;
+const tt=v.tin&&v.tout&&!v.sd?`${v.tin}–${v.tout}`:(!v.sd&&!ty&&sh?`<span class=ph>${sh.st}–${sh.en}</span>`:"");
+const ot=Math.round((OT.o1+OT.o2)*100)/100,sick=v.sd||(+v.sk>0&&d.getDay()%6);
+c.querySelector(".tt").innerHTML=tt;c.querySelector(".rt").innerHTML=(ty?`<span class="bd ${ty=="hellig"?"bh":"bf"}">${ty=="hellig"?"Helligdag":"Ferie"}</span>`:"")+(sick?`<span class="bd bs">Syg</span>`:"")+(ot?`<b class=otv>+${fmt(ot).replace(/,00$/,"")} t</b>`:"");}
+function diaetDay(v){if(!S.xDiaet)return{h:0,ex:0,base:0,red:0,lo:0,amt:0,n:0};let ex=+v.dh||0;if(v.rs&&v.re){let a=tm(v.rs),b=tm(v.re);if(b<=a)b+=1440;ex=Math.ceil((b-a)/60-1e-9);}
+const h=(v.d?24:0)+ex,base=h/24*S.diaetRate,n=(v.mb?1:0)+(v.ml?1:0)+(v.ma?1:0),red=h?Math.min(base,((v.mb?+S.mbPct:0)+(v.ml?+S.mlPct:0)+(v.ma?+S.maPct:0))/100*S.diaetRate):0,lo=S.logiOn&&v.lo?+S.logiRate:0,rr=x=>Math.round(x*100)/100;return{h,ex,base:rr(base),red:rr(red),lo,amt:rr(base-red+lo),n};}
+function dnText(k){const x=diaetDay(loadD()[k]||{});if(!x.h&&!x.lo)return "Ingen diæt denne dag";return `Diæt: ${x.h>=24?Math.floor(x.h/24)+" døgn":""}${x.h%24||x.h<24?(x.h>=24?" + ":"")+(x.h%24)+" påbeg. t":""} = ${fmt(x.base)} kr`+(x.red?` − måltider ${fmt(x.red)}`:"")+(x.lo?` + logi ${fmt(x.lo)}`:"")+` → <b>${fmt(x.amt)} kr</b>`;}
+function updOT(k){k=k||iso(CUR);{const dn=$("dn_"+k);if(dn)dn.innerHTML=dnText(k);}k=k||iso(CUR);const el=$("ot_"+k);if(el)el.textContent=otText(k);sumRow(k);}
+const NF=(k,f,l,c)=>`<label${c?` class="${c}"`:""}>${l}<input type=number step=any min=0 inputmode=decimal data-k="${k}" data-f="${f}"></label>`;
+function dayCard(k,d,today){const wd=d.getDay()%6,v=loadD()[k]||{},sh=offDay(d,loadD())?null:shiftOf(d);return `<div class="dc ${wd?"wd":"we"} ${k==today?"today":""} ${OPEN==k?"open":""}" id="dc_${k}" data-k="${k}">
+<div class=dr data-row="${k}"><b>${WD[d.getDay()].slice(0,3).replace(/^./,c=>c.toUpperCase())} ${d.getDate()}.${d.getMonth()+1}.</b><span class=tt></span><span class=rt></span></div>
+<div class=det><div class=dg2><div class="note" style="grid-column:1/-1">${sh&&!v.tin&&!v.tout?`Tom dag = standard ${sh.st}–${sh.en} (tryk på feltet for at udfylde)`:""}</div><label>Mødt<input type=time step=60 data-k="${k}" data-f="tin"></label><label>Gået<input type=time step=60 data-k="${k}" data-f="tout"></label>
+${wd?`${NF(k,"sk","Sygdom (timer)")}<label class=cb><input type=checkbox data-k="${k}" data-f="sd">Syg hele dagen</label>`:""}
+<label>Dagtype<select data-k="${k}" data-f="typ"><option value="">Auto</option><option value="arb">Arbejdsdag</option><option value="ferie">Feriedag</option><option value="hellig">Helligdag</option></select></label>
+${NF(k,"s","Supervisor (timer)","x-sup")}${NF(k,"km","Kørsel (km)","x-km")}
+<label class="cb x-diaet"><input type=checkbox data-k="${k}" data-f="d">Diæt – helt døgn</label>${NF(k,"dh","Diæt – ekstra timer","x-diaet")}<label class="x-diaet">Rejse start<input type=time step=60 data-k="${k}" data-f="rs"></label><label class="x-diaet">Rejse slut<input type=time step=60 data-k="${k}" data-f="re"></label><div class="x-diaet note" style="grid-column:1/-1;margin-top:-4px">Rejsetid på dagen giver påbegyndte timer (1/24 døgnsats pr. time) og erstatter "ekstra timer". Fri kost modtaget:</div><label class="cb x-diaet"><input type=checkbox data-k="${k}" data-f="mb">Morgenmad</label><label class="cb x-diaet"><input type=checkbox data-k="${k}" data-f="ml">Middagsmad (frokost)</label><label class="cb x-diaet"><input type=checkbox data-k="${k}" data-f="ma">Aftensmad</label><label class="cb x-diaet x-logi"><input type=checkbox data-k="${k}" data-f="lo">Logi (betalt selv)</label><div class="x-diaet note" id="dn_${k}" style="grid-column:1/-1;color:var(--fg036)"></div>
+<label class="x-udl">Udland/DK<select data-k="${k}" data-f="a"><option value="">Ugens indstilling</option><option value="1">Udland</option><option value="0">Danmark</option></select></label></div>
+<div class=ot id="ot_${k}"></div></div></div>`;}
+function renderDays(){const D=loadD(),W=loadW(),m=weekMon(CUR),su=new Date(m);su.setDate(su.getDate()+6);const today=iso(new Date());
+$("dtitle").textContent="Uge "+isoWeek(m).w;$("wdates").textContent=dk(m).slice(0,5)+" – "+dk(su);$("w_a").checked=wAb(W[wkey(m)]||{});
+let h="";for(let i=0;i<7;i++){const d=new Date(m);d.setDate(d.getDate()+i);h+=dayCard(iso(d),d,today);}$("week").innerHTML=h;
+for(let i=0;i<7;i++){const d=new Date(m);d.setDate(d.getDate()+i);const k=iso(d),v=D[k]||{},ty=dayTyp(k,v),c=$("dc_"+k);
+if(ty)c.classList.add(ty=="hellig"?"hol":"fer");
+c.querySelectorAll("[data-f]").forEach(el=>{const f=el.dataset.f;if(el.type=="checkbox")el.checked=!!v[f];else el.value=v[f]??"";});updOT(k);}
+for(const k in XC)document.querySelectorAll("."+XC[k]).forEach(el=>el.style.display=S[k]?"":"none");document.querySelectorAll("#week .x-logi").forEach(el=>el.style.display=S.xDiaet&&S.logiOn?"":"none");if(typeof sheetHdr=="function")sheetHdr();}
+const DL=()=>{const c=$("dc_"+iso(CUR));return c?c.querySelector("b").textContent:"";};
+let SP=periodOf(new Date());
+function hasEntries(p0){const D=loadD(),e=periodEnd(p0);for(const k in D){const [y,m,d]=k.split("-").map(Number),x=new Date(y,m-1,d);if(x>=p0&&x<=e&&Object.values(D[k]).some(v=>v!==""&&v!==false&&v!=null&&v!==0))return true;}return !!localStorage.getItem("lb_po_"+iso(p0));}
+function renderSlip(){const keep=P;P=SP;try{const e=periodEnd(P);const t=totals(),r=calc(S,t);
+{const q=payOf(P),mn=MO[e.getMonth()];$("plabel").textContent=mn[0].toUpperCase()+mn.slice(1)+" "+e.getFullYear();$("ppay").textContent="Periode "+dk(P).slice(0,5)+"–"+dk(e).slice(0,5)+" · udbetales "+(q.known?"":"ca. ")+dk(q.d).slice(0,5);}$("snet").textContent=fmt(r.net)+" kr";
+const now=periodOf(new Date()),opts=[];for(let i=-12;i<=3;i++)opts.push(new Date(now.getFullYear(),now.getMonth()+i,15));if(!opts.some(o=>+o==+SP)){opts.push(new Date(SP));opts.sort((a,b)=>a-b);}
+$("psel").innerHTML=opts.map(o=>{const oe=periodEnd(o);return `<option value="${iso(o)}" ${+o==+SP?"selected":""}>${hasEntries(o)?"● ":"   "}${dk(o)} – ${dk(oe)}${+o==+now?" (nu)":""}</option>`;}).join("");
+const PN=periodNorm(),M=loadM();let parts=[];for(let d=new Date(P.getFullYear(),P.getMonth(),1);d<=e;d.setMonth(d.getMonth()+1)){const y=d.getFullYear(),mo=d.getMonth();let n=0;for(let x=new Date(P);x<=e;x.setDate(x.getDate()+1))if(x.getMonth()==mo&&x.getDay()%6&&!offDay(x,loadD()))n++;parts.push(MO[mo]+": "+fmt(+M[mkey(d)]||0)+" × "+n+"/"+wdEff(y,mo,loadD()));}
+$("np_p").textContent=dk(P)+" – "+dk(e);$("np_calc").innerHTML="Beregnet: <b>"+fmt(PN.c)+" t</b> ("+parts.join(" + ")+")"+(PN.ov!=null?"<br>Overstyret: <b>"+fmt(PN.ov)+" t</b>":"");$("np_ov").value=PN.ov??"";
+$("slipHead").innerHTML=`Periode: <b>${dk(P)} – ${dk(e)}</b> · Forventet dispositionsdato: <b>${payTxt(P)}</b>`;
+const U=S.xUdland,L=[];if(U)L.push([S.c_norm,"Timer udland","",t.nU,udR(S),r.g1]);
+if(t.nD||!U)L.push([S.c_dom,U?"Normaltimer Danmark":"Normtimer","",t.nD,S.rateDom,r.gD]);
+if(t.sU)L.push([S.c_sick,"Sygdom"+(t.sD?" (udland)":""),"",t.sU,udR(S),r.gSU]);
+if(t.sD)L.push([S.c_sick,"Sygdom"+(t.sU?" (DK)":""),"",t.sD,S.rateDom,r.gSD]);
+const m2=x=>Math.round(x*100)/100;if(U){if(t.oU1||!t.oD1&&!t.oD2)L.push([S.c_ot,"Overtid udland"+(t.oU2?" før kl. 18":""),"",t.oU1,S.ot1,m2(t.oU1*S.ot1)]);if(t.oU2)L.push([S.c_ot2,"Overtid udland efter kl. 18","",t.oU2,S.ot2,m2(t.oU2*S.ot2)]);if(t.oD1)L.push([S.c_otd1,"Overtid DK før kl. 18","",t.oD1,S.ot1,m2(t.oD1*S.ot1)]);if(t.oD2)L.push([S.c_otd2,"Overtid DK efter kl. 18","",t.oD2,S.ot2,m2(t.oD2*S.ot2)]);L.push([S.c_sup,"Supervisor udland","",t.s,S.supRate||"",S.supRate?r.g3:""]);}
+else{L.push([S.c_otd1,"Overtid før kl. 18","",t.o1,S.ot1,r.g2]);L.push([S.c_otd2,"Overtid efter kl. 18","",t.o2,S.ot2,r.g2b]);}
+if(S.fritvalgOn&&S.fritvalg)L.push([S.c_fv1,"Fritvalgspulje pens.ber.","","","",S.fritvalg],[S.c_fv2,"Fritvalg til hensat.(bel)","","","",-S.fritvalg]);
+L.push([S.c_brut,"Bruttoløn i alt","","","",r.gross,1],[S.c_amp,"AMP medarbejderbidrag",r.pb,"",S.ampPct+"%",-r.amp],[S.c_atp,"ATP MA-bidrag","","","",-S.atp]);
+if(S.taxAdj)L.push(["","Skattepligtigt tillæg (antaget)","","","",S.taxAdj]);
+L.push([S.c_before,"Samlet løn før skat","","","",r.before,1],[S.c_am,"Arbejdsmarkedsbidrag AM",r.before,"",S.amPct+"%",-r.am],[S.c_fra,"Anvendt fradrag","","",S.fradrag,""],[S.c_tax,"A-skat",r.tb,"",S.taxPct+"%",-r.tax],...(S.forening?[[S.c_for,"Personaleforening Lindø","","","",-S.forening]]:[]));
+if(t.km)L.push([S.c_km,"Kørselsgodtgørelse (skattefri)","",t.km,S.kmRate,r.km]);
+if(r.dQty)L.push([S.c_diaet,"Diæter kost (skattefri)"+(t.dh?` · ${t.dd} døgn + ${fmt(t.dh)} påbeg. t`:""),"",+r.dQty.toFixed(3),S.diaetRate,r.dKost]);if(t.mred)L.push(["","Fradrag for fri kost · "+t.mn+" måltid(er)","","","",-t.mred]);if(t.logi)L.push([S.c_diaet,"Logi (skattefri)","",t.nlo,S.logiRate,t.logi]);
+L.push(["","Overført til konto","","","",r.net,1]);
+const c=v=>v===""?"":typeof v=="number"?fmt(v):v;
+$("slip").innerHTML=L.map(x=>{const [code,txt,gr,qty,rate,amt,sum]=x,d=[];if(code)d.push(code);
+if(qty!==""&&qty!=null)d.push(fmt(+qty)+(txt.startsWith("Kørsel")?" km":txt.startsWith("Diæt")?" døgn":txt.startsWith("Logi")?" nat":" t")+(rate!==""&&rate!=null?" × "+c(rate):""));
+else if(gr!==""&&gr!=null)d.push((rate!==""?rate+" af ":"grundlag ")+c(gr));else if(rate!==""&&rate!=null)d.push(c(rate));
+return `<tr class="${sum?"sum":""}" data-h="${qty??""}" data-code="${code}"><td>${txt}${d.length?`<div class=dt>${d.join(" · ")}</div>`:""}</td><td class=a>${c(amt)}</td></tr>`;}).join("");}finally{P=keep;}}
+function render(){const e=periodEnd(P);const t=totals(),r=calc(S,t);
+$("net").textContent=fmt(r.net)+" kr";
+$("sub").textContent="Forventet udbetaling "+payTxt(P)+" · "+fmt(t.nU+t.nD)+" t normal, "+fmt(t.o1+t.o2)+" t overtid, "+fmt(t.sU+t.sD)+" t sygdom";
+$("psum_p").textContent=dk(P)+" – "+dk(e);$("dsum").innerHTML=`<p><b>Estimeret netto: ${fmt(r.net)} kr</b><br>Betalt normal udland ${fmt(t.nU)} · DK ${fmt(t.nD)} · OT før 18 ${fmt(t.o1)} · OT efter 18 ${fmt(t.o2)} · Supervisor ${fmt(t.s)} · Sygdom ${fmt(t.sU+t.sD)} · Kørsel ${fmt(t.km)} km · Diæter ${t.dd} døgn + ${fmt(t.dh)} t</p>`;
+renderSlip();}
+function fld(k){return BOOL.includes(k)?`<label>${LAB[k]}<input type=checkbox id=s_${k} ${S[k]?"checked":""}></label>`:k=="sickMode"?`<label>${LAB[k]}<select id=s_sickMode><option value=dag>Dagens sats (udland/DK)</option><option value=udland>Altid udlandssats</option><option value=dk>Altid Danmark-sats</option><option value=ubetalt>Ubetalt</option></select></label>`:(k.startsWith("sh")||k=="b1s"||k=="b2s"?`<label>${LAB[k]}<input id=s_${k} type=time step=60 style="width:auto" value="${S[k]}"></label>`:`<label>${LAB[k]}<input id=s_${k} ${k.startsWith("c_")?"":"type=number step=any"} value="${S[k]}"></label>`)+(k=="bPaid"?`<div id=shinfo class=note></div>`:"");}
+function udInfo(){const el=$("s_rateDom");if(!el)return;let n=$("udinfo");if(!n){n=document.createElement("div");n.id="udinfo";n.className="note";el.closest("label").after(n);}n.textContent="Timesats udland (beregnet, kan ikke rettes): "+fmt(S.rateDom)+" × 1,37 = "+fmt(udR(S))+" kr";}
+function shInfo(){udInfo();const el=$("shinfo");if(!el)return;const f=(x,y)=>{if(!x||!y)return"–";const a=tm(x),b=tm(y),h=(b-a)/60,p=ubrk(a,b);return fmt(h)+" t − ubetalte pauser "+p+" min = <b>"+fmt(h-p/60)+" t</b>";};
+const M=loadM(),now=new Date(),D=loadD(),n=wdEff(now.getFullYear(),now.getMonth(),D),nd=n?(+M[mkey(now)]||0)/n:0;
+el.innerHTML="Man–tor: "+f(S.shMTs,S.shMTe)+"<br>Fredag: "+f(S.shFs,S.shFe)+"<br>Norm pr. hverdag i "+MO[now.getMonth()]+": "+fmt(nd)+" t. Pauser trækkes kun fra, hvor de ligger inden for mødt–gået (ubetalte). Overtid tæller kun tid før mødetid eller efter gåtid (weekend/helligdag/feriedag: al tid, uden fradrag for pauser), så en normal dag giver ingen overtid.";}
+function buildSettings(){$("toggles").innerHTML=Object.keys(XT).map(k=>`<div class=tg><span>${XT[k]}</span><label class=sw><input type=checkbox id=s_${k} ${S[k]?"checked":""}><span></span></label></div>`).join("");
+Object.keys(XT).forEach(k=>$("s_"+k).addEventListener("change",e=>{S[k]=e.target.checked;saveS();renderDays();render();}));
+setTimeout(shInfo,0);$("mtid").innerHTML=["shMTs","shMTe","shFs","shFe","b1s","b1m","b2s","b2m","bPaid"].map(fld).join("");$("settings").innerHTML=GROUPS.map(([h,ks])=>`<h2 class=gh>${h}</h2>`+(ks||Object.keys(LAB).filter(k=>k.startsWith("c_"))).map(fld).join("")).join("");
+$("s_sickMode").value=S.sickMode;
+Object.keys(LAB).filter(k=>$("s_"+k)).forEach(k=>$("s_"+k).addEventListener("input",ev=>{const t=ev.target;S[k]=t.type=="checkbox"?t.checked:t.type=="number"?(parseFloat(t.value)||0):t.value;saveS();renderDays();render();shInfo();}));}
+function setDay(f,val,k){const D=loadD();k=k||iso(CUR);D[k]=D[k]||{};if(val===""||val==null)delete D[k][f];else D[k][f]=val;storeD(D);}
+function onWeek(e){const el=e.target,k=el.dataset&&el.dataset.k,f=el.dataset&&el.dataset.f;if(!k||!f)return;const isC=el.type=="checkbox"||el.tagName=="SELECT";if((e.type=="change")!=isC)return;
+CUR=pd(k);P=periodOf(CUR);
+if(el.type=="checkbox"){setDay(f,el.checked||"",k);if(f=="sd"){const {norm}=dayInfo(CUR,loadD(),loadW());setDay("sk",el.checked?(norm||S.sickDay):"",k);}renderDays();}
+else if(el.tagName=="SELECT"){setDay(f,el.value,k);renderDays();}else if(el.type=="time"){setDay(f,el.value,k);updOT(k);}else{setDay(f,el.value===""?"":parseFloat(el.value)||0,k);updOT(k);}render();}
+$("week").addEventListener("focusin",e=>{const el=e.target;if(el.type!="time"||!el.dataset.k)return;const k=el.dataset.k,d=pd(k),D=loadD(),v=D[k]||{};if(v.tin||v.tout||offDay(d,D))return;const sh=shiftOf(d);if(!sh)return;
+setDay("tin",sh.st,k);setDay("tout",sh.en,k);const c=$("dc_"+k);c.querySelector('[data-f="tin"]').value=sh.st;c.querySelector('[data-f="tout"]').value=sh.en;CUR=d;P=periodOf(CUR);updOT(k);render();});
+$("week").addEventListener("click",e=>{const r=e.target.closest(".dr");if(!r)return;const k=r.dataset.row;const prev=OPEN;OPEN=OPEN==k?null:k;document.querySelectorAll("#week .dc.open").forEach(c=>c.classList.remove("open"));if(OPEN){$("dc_"+OPEN).classList.add("open");CUR=pd(k);P=periodOf(CUR);}sheetHdr();});
+$("week").addEventListener("input",onWeek);$("week").addEventListener("change",onWeek);
+$("np_ov").addEventListener("change",e=>{const k="lb_po_"+iso(SP);if(e.target.value==="")localStorage.removeItem(k);else localStorage.setItem(k,JSON.stringify({normOverride:parseFloat(e.target.value)||0}));renderDays();render();});
+let YR=CUR.getFullYear(),MV=new Date(CUR.getFullYear(),CUR.getMonth(),1);
+function compNorm(y,m){const D=loadD();let t=0;for(let d=new Date(y,m,1);d.getMonth()==m;d.setDate(d.getDate()+1)){if(offDay(d,D))continue;const sh=shiftOf(d);if(!sh)continue;t+=(sh.b-sh.a-ubrk(sh.a,sh.b))/60;}return Math.round(t*100)/100;}
+function cmpTxt(k,y,i){const M=loadM(),c=compNorm(y,i),v=M[k];if(v==null||v==="")return `Beregnet ${fmt(c)}`;const df=Math.round((v-c)*100)/100;return `Kalender ${fmt(+v)} · beregnet ${fmt(c)} · forskel ${df>0?"+":""}${fmt(df)}`;}
+function pnSum(p0){const M=loadM(),D=loadD(),e=periodEnd(p0);let c=0,k=0;for(let d=new Date(p0);d<=e;d.setDate(d.getDate()+1)){c+=baseNorm(d,M,D);if(!offDay(d,D)){const sh=shiftOf(d);if(sh)k+=(sh.b-sh.a-ubrk(sh.a,sh.b))/60;}}return{n:Math.round(c*100)/100,c:Math.round(k*100)/100};}
+const pName=p0=>{const e=periodEnd(p0),n=MO[e.getMonth()];return n[0].toUpperCase()+n.slice(1);};
+function renderYRO(){const M=loadM();$("yro").innerHTML=`<table class="cs"><tr><th>Måned</th><th class="n">Kalender</th><th class="n">Beregnet</th><th class="n">Forskel</th></tr>`+MO.map((n,i)=>{const k=YR+"-"+String(i+1).padStart(2,"0"),c=compNorm(YR,i),v=M[k],df=v==null||v===""?null:Math.round((+v-c)*100)/100;return `<tr><td>${n[0].toUpperCase()+n.slice(1)}</td><td class="n">${v==null||v===""?"–":fmt(+v)}</td><td class="n">${fmt(c)}</td><td class="n">${df==null?"–":(df>0?"+":"")+fmt(df)}</td></tr>`;}).join("")+"</table>";}
+function renderYearPer(){renderYRO();const now=new Date(),cp=periodOf(now);$("yper").innerHTML=MO.map((n,i)=>{const p0=new Date(YR,i-1,15),e=periodEnd(p0),q=pnSum(p0),df=Math.round((q.n-q.c)*100)/100;return `<div class="yt ${+p0==+cp?"cur":""}" data-mo="${i}"><b>${pName(p0)}</b><span class=note>${dk(p0).slice(0,5)}–${dk(e).slice(0,5)} · udb. ${payTxt(p0).replace(/\.\d{4}$/,"")}</span><div class=pn2>Norm <b>${fmt(q.n)} t</b></div><div class=cmp>beregnet ${fmt(q.c)} · forskel ${df>0?"+":""}${fmt(df)}</div></div>`;}).join("");}
+function renderYear(){const M=loadM(),now=new Date(),cp=periodOf(now);$("ylabel").textContent=YR;$("nylabel").textContent=YR;renderYRO();
+$("yper").innerHTML=MO.map((n,i)=>{const p0=new Date(YR,i-1,15),e=periodEnd(p0),q=pnSum(p0),df=Math.round((q.n-q.c)*100)/100;return `<div class="yt ${+p0==+cp?"cur":""}" data-mo="${i}"><b>${pName(p0)}</b><span class=note>${dk(p0).slice(0,5)}–${dk(e).slice(0,5)} · udb. ${payTxt(p0).replace(/\.\d{4}$/,"")}</span><div class=pn2>Norm <b>${fmt(q.n)} t</b></div><div class=cmp>beregnet ${fmt(q.c)} · forskel ${df>0?"+":""}${fmt(df)}</div></div>`;}).join("");
+$("ymonths").innerHTML=MO.map((n,i)=>{const k=YR+"-"+String(i+1).padStart(2,"0");return `<div class="yt ym" data-mi="${i}"><b>${n[0].toUpperCase()+n.slice(1)}</b><span class=note>${wdEff(YR,i,loadD())} arbejdsdage</span><input type=number step=any min=0 inputmode=decimal placeholder="normtimer" data-m="${k}" value="${M[k]??""}"><div class=cmp id="cmp_${k}">${cmpTxt(k,YR,i)}</div><button class="use" data-use="${k}" data-i="${i}">Brug beregnet</button></div>`;}).join("");}
+$("ymonths").addEventListener("input",e=>{const k=e.target.dataset.m;if(!k)return;renderYearPer();const M=loadM();const st=J("lb_months","{}");st[k]=e.target.value===""?null:(parseFloat(e.target.value)||0);storeM(st);{const i=+k.slice(5)-1,el=$("cmp_"+k);if(el)el.textContent=cmpTxt(k,+k.slice(0,4),i);}renderDays();render();});
+$("ymonths").addEventListener("click",e=>{if(e.target.dataset.use){const k=e.target.dataset.use,st=J("lb_months","{}");st[k]=compNorm(YR,+e.target.dataset.i);storeM(st);renderYear();renderDays();render();}});
+$("yper").addEventListener("click",e=>{const t=e.target.closest(".yt");if(t)openPeriod(new Date(YR,+t.dataset.mo-1,15));});
+$("nyprev").onclick=()=>{YR--;renderYear();};$("nynext").onclick=()=>{YR++;renderYear();};$("go_norm").onclick=()=>{show("set");$("normsec").scrollIntoView();};
+$("yprev").onclick=()=>{YR--;renderYear();};$("ynext").onclick=()=>{YR++;renderYear();};
+function openYear(y){YR=y??CUR.getFullYear();renderYear();show("year");}
+function openMonth(d){openPeriod(periodOf(d));}
+function openPeriod(p0){MV=new Date(p0);const D=loadD(),W=loadW(),e=periodEnd(p0),today=iso(new Date()),q=pnSum(p0);
+$("mlabel").textContent=pName(p0)+" "+e.getFullYear();$("msub").textContent=dk(p0).slice(0,5)+"–"+dk(e).slice(0,5)+" · udbetales "+payTxt(p0)+" · norm "+fmt(q.n)+" t";
+let h=["man","tir","ons","tor","fre","lør","søn"].map(x=>`<div class=mh>${x}</div>`).join("")+"<div></div>".repeat((p0.getDay()+6)%7);
+for(let x=new Date(p0);x<=e;x.setDate(x.getDate()+1)){const k=iso(x),v=D[k]||{},w=W[wkey(x)]||{},A=v.a===undefined||v.a===""?wAb(w):v.a=="1",m=[];
+const OT=otOf(v,dayInfo(new Date(x),D,W).norm,new Date(x),D),ot=Math.round((OT.o1+OT.o2)*100)/100;if(ot)m.push("Ø"+ot);if(+v.sk&&x.getDay()%6)m.push("S"+v.sk);if(S.xSup&&+v.s)m.push("Su"+v.s);if(S.xKm&&+v.km)m.push("K"+v.km);if(S.xDiaet&&(v.d||+v.dh))m.push("D"+(v.d?"1":"")+(+v.dh?"+"+v.dh+"t":""));
+const has=m.length>0;if(S.xUdland&&A&&x.getDay()%6)m.push("U");
+const dd=x.getDate(),nx=new Date(x);nx.setDate(dd+1);const last=nx.getMonth()!=x.getMonth()&&+x!=+e,pc=x.getMonth()==p0.getMonth()?"pA":"pB";
+h+=`<div class="mc ${pc} ${dd==1?"split":""} ${last?"pre":""} ${{hellig:"hol",ferie:"fer"}[dayTyp(k,v)]||""} ${x.getDay()%6?"":"we"} ${k==today?"today":""} ${has?"has":""}" data-d="${k}"><div class=dn>${dd}</div>${dd==1?`<div class=pl>${MO[x.getMonth()]}</div>`:""}${dayTyp(k,v)?`<div class=ty>${dayTyp(k,v)=="hellig"?"Helligdag":"Feriedag"}</div>`:""}<div class=mk>${m.join(" ")}</div></div>`;}
+$("mgrid").innerHTML=h;const m1=MO[p0.getMonth()],m2=MO[e.getMonth()];
+$("mlegend2").innerHTML=`<span style="background:var(--bgfff4e0);padding:0 6px;border-radius:3px">${m1} 15.–</span> <span style="background:var(--bge8f2ff);padding:0 6px;border-radius:3px">${m2} 1.–14.</span> · <span style="border-left:4px solid var(--bdc60);padding-left:4px">orange streg</span> = månedsskift.`;
+$("mlegend").innerHTML=`<span style="background:var(--bgffd8a8);padding:0 6px;border-radius:3px">Feriedag</span> <span style="background:var(--bgfdd);color:var(--fgb00);padding:0 6px;border-radius:3px">Helligdag</span> · `+"Ø = overtid, S = syg"+(S.xSup?", Su = supervisor":"")+(S.xKm?", K = kørsel":"")+(S.xDiaet?", D = diæt":"")+(S.xUdland?", U = udland":"")+".";show("month");}
+$("mgrid").addEventListener("click",e=>{const c=e.target.closest(".mc");if(!c)return;const [y,m,d]=c.dataset.d.split("-").map(Number);OPEN=c.dataset.d;goDay(new Date(y,m-1,d));show("days");const el=$("dc_"+c.dataset.d);if(el)el.scrollIntoView({block:"center"});});
+$("mback").onclick=()=>openYear(periodEnd(MV).getFullYear());$("dmonth").onclick=()=>openMonth(CUR);
+$("go_adv").onclick=()=>{show("adv");shInfo();};$("adv_back").onclick=()=>show("set");
+$("t_cal").onclick=()=>openYear();$("go_year").onclick=()=>openYear();
+$("w_a").addEventListener("change",e=>{const W=loadW(),k=wkey(CUR);W[k]=W[k]||{};W[k].a=e.target.checked;storeW(W);renderDays();render();});
+function goSP(n){SP=new Date(SP.getFullYear(),SP.getMonth()+n,15);renderSlip();}
+$("prev").onclick=()=>goSP(-1);$("next").onclick=()=>goSP(1);
+$("psel").addEventListener("change",e=>{const [y,m,d]=e.target.value.split("-").map(Number);SP=new Date(y,m-1,d);renderSlip();});
+{let x0=null,y0=null;const el=$("v_slip");el.addEventListener("touchstart",e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+el.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)>60&&Math.abs(dy)<Math.abs(dx)*0.6)goSP(dx<0?1:-1);});}
+function goDay(d){CUR=new Date(d.getFullYear(),d.getMonth(),d.getDate());P=periodOf(CUR);renderDays();render();}
+$("dprev").onclick=()=>goDay(new Date(CUR.getFullYear(),CUR.getMonth(),CUR.getDate()-1));
+$("dnext").onclick=()=>goDay(new Date(CUR.getFullYear(),CUR.getMonth(),CUR.getDate()+1));
+$("wprev").onclick=()=>goDay(new Date(CUR.getFullYear(),CUR.getMonth(),CUR.getDate()-7));
+$("wnext").onclick=()=>goDay(new Date(CUR.getFullYear(),CUR.getMonth(),CUR.getDate()+7));
+$("dtoday").onclick=()=>{goDay(new Date());const c=$("dc_"+iso(CUR));if(c)c.scrollIntoView({block:"center"});};
+$("reset").onclick=()=>{if(!confirm("Nulstil alle faste oplysninger til standard?"))return;S=Object.assign({},DEF);saveS();buildSettings();renderDays();render();};
+const HT={days:"Dage",slip:"Forventet løn",set:"Indstillinger",adv:"Indstillinger",year:"Kalender",month:"Kalender"};
+function show(v){if(v!="days")closeSheet();$("hbar").style.display=v=="home"?"none":"";$("htitle").textContent=HT[v]||"";scrollTo(0,0);["home","days","slip","set","adv","year","month"].forEach(x=>{$("v_"+x).style.display=x==v?"":"none";});["days","slip","set","cal"].forEach(x=>$("t_"+x).className=(x==v||(x=="cal"&&(v=="year"||v=="month"))||(x=="set"&&v=="adv"))?"":"off");}
+["days","slip","set"].forEach(x=>$("t_"+x).onclick=()=>{if(x=="set")renderYear();show(x);});
+$("theme").value=localStorage.getItem("lb_theme")||"auto";$("theme").onchange=e=>{localStorage.setItem("lb_theme",e.target.value);applyTheme();};
+$("t_home").onclick=()=>show("home");$("h_days").onclick=()=>show("days");$("h_slip").onclick=()=>show("slip");$("h_set").onclick=()=>{YR=CUR.getFullYear();renderYear();show("set");};$("h_cal").onclick=()=>openYear();
+function sheetHdr(){const c=OPEN&&$("dc_"+OPEN);$("sheetbg").className=c&&c.classList.contains("open")?"on":"";if(!c)return;const dt=c.querySelector(".det");if(dt&&!dt.querySelector(".shh"))dt.insertAdjacentHTML("afterbegin",`<div class="shh"><b>${c.querySelector(".dr b").textContent}</b><button type="button" class="shx">Færdig</button></div>`);}
+function closeSheet(){OPEN=null;document.querySelectorAll("#week .dc.open").forEach(c=>c.classList.remove("open"));$("sheetbg").className="";}
+$("sheetbg").onclick=closeSheet;$("week").addEventListener("click",e=>{if(e.target.closest(".shx"))closeSheet();});
+$("w_ok").onclick=()=>{const W={taxPct:"w_tax",fradrag:"w_fra",rateDom:"w_dom"},v={};for(const k in W){const x=parseFloat($(W[k]).value.replace(/\./g,"").replace(",","."));if(isNaN(x)){$("w_err").textContent="Udfyld alle tre felter.";$(W[k]).focus();return;}v[k]=x;}Object.assign(S,v);saveS();localStorage.setItem("lb_setup","1");$("wiz").style.display="none";buildSettings();render();};
+// Testhooks: #test = lønsedlen 15.08.2026 (normtimer overstyret til 223,40); #test2 = simuleret indtastning via UI
+const H=location.hash;
+if(H=="#test4"){localStorage.clear();localStorage.setItem("lb_setup","1");S=Object.assign({},DEF);saveS();show("year");}
+if(H=="#test3"){localStorage.clear();localStorage.setItem("lb_setup","1");S=Object.assign({},DEF,{taxPct:41,fradrag:8592,rateDom:208.04,rate:285.01});saveS();CUR=new Date(2026,9,15);P=periodOf(CUR);SP=P;localStorage.setItem("lb_po_2026-10-15",JSON.stringify({normOverride:160}));const D={"2026-10-15":{a:"1",s:5}};storeD(D);storeW({"2026-W42":{a:true}});show("slip");}
+if(H=="#test"||H=="#test2"){localStorage.clear();localStorage.setItem("lb_setup","1");S=Object.assign({},DEF,{taxPct:41,fradrag:8592,rateDom:208.04,rate:285.01,pensFactor:82268.38/63722.35,taxAdj:229.47,forening:51,fritvalgOn:true,fritvalg:10552.05,xUdland:H=="#test"});saveS();
+ if(H=="#test"){CUR=new Date(2026,7,15);P=periodOf(CUR);localStorage.setItem("lb_po_2026-08-15",JSON.stringify({normOverride:223.40}));storeD({"2026-08-15":{o1:45.24,s:155.71}});SP=P;show("slip");}else{CUR=new Date(2026,9,15);P=periodOf(CUR);SP=P;show("days");}}else show("home");
+if(!localStorage.getItem("lb_setup"))$("wiz").style.display="flex";
+buildSettings();renderDays();render();
+if(H=="#test4"){openYear(2026);const out=[];for(let i=6;i<12;i++){const k="2026-"+String(i+1).padStart(2,"0");out.push(MO[i]+": "+cmpTxt(k,2026,i)+" ("+wdEff(2026,i,loadD())+" dage)");}for(let i=6;i<12;i++){const p0=new Date(2026,i-1,15),q=pnSum(p0);out.push("PERIODE "+pName(p0)+" "+dk(p0).slice(0,5)+"–"+dk(periodEnd(p0)).slice(0,5)+" udb. "+payTxt(p0)+": norm "+fmt(q.n)+" · beregnet "+fmt(q.c));}out.push("fliser="+document.querySelectorAll("#yper .yt").length+" første="+document.querySelector("#yper .yt b").textContent+" "+document.querySelector("#yper .yt .note").textContent);document.querySelector('[data-use="2026-12"]').click();S.bPaid=10;out.push("bPaid=10: okt "+cmpTxt("2026-10",2026,9)+" / OT15-check arbejdet: "+otOf({tin:"06:55",tout:"15:15"},7.4,new Date(2026,9,15),loadD()).w);S.bPaid=0;out.push("efter Brug dec="+loadM()["2026-12"]+" okt uændret="+loadM()["2026-10"]);document.title=out.join(" | ");}
+if(H=="#test3"){const rows=[...document.querySelectorAll("#slip tr")].map(r=>(r.cells[0].textContent+" = "+r.cells[1].textContent).trim());document.title=rows.join(" | ");}
+if(H=="#test2"){const q=f=>document.querySelector(`#v_days [data-k="${iso(CUR)}"][data-f="${f}"]`),OTC=()=>$("ot_"+iso(CUR)),inp=(el,v)=>{if(el.type=="checkbox"){el.checked=v;el.dispatchEvent(new Event("change",{bubbles:true}));}else{el.value=v;el.dispatchEvent(new Event("input",{bubbles:true}));el.dispatchEvent(new Event("change",{bubbles:true}));}};
+const log=[];$("t_set").click();Object.keys(XT).forEach(k=>inp($("s_"+k),true));$("go_adv").click();log.push("adv vis="+($("v_adv").style.display||"ja")+" grupper="+document.querySelectorAll("#settings .gh").length+" toggles="+document.querySelectorAll("#toggles .sw").length);$("adv_back").click();log.push("set vis="+($("v_set").style.display||"ja"));
+$("t_cal").click();const yi=m=>document.querySelector(`[data-m="${m}"]`);inp(yi("2026-10"),160.6);inp(yi("2026-11"),155);log.push("aar:"+$("ylabel").textContent+" vis="+($("v_year").style.display||"ja"));document.querySelector('.yt[data-mo="10"] b').click();log.push("PERIODE: "+$("mlabel").textContent+" / "+$("msub").textContent+" | første="+document.querySelector('#mgrid .mc').dataset.d+" sidste="+[...document.querySelectorAll('#mgrid .mc')].pop().dataset.d+" | 1.11 cls="+document.querySelector('.mc[data-d="2026-11-01"]').className.replace(/\s+/g," ")+" lbl="+document.querySelector('.mc[data-d="2026-11-01"] .pl').textContent+" | 31.10 pre="+/pre/.test(document.querySelector('.mc[data-d="2026-10-31"]').className)+" | "+$("mlegend2").textContent);log.push("maaned:"+$("mlabel").textContent+" vis="+($("v_month").style.display||"ja"));document.querySelector('.mc[data-d="2026-10-15"]').click();log.push("dag vis="+($("v_days").style.display||"ja"));log.push($("np_calc").textContent);log.push(DL()+"/"+DL()+" "+$("wdates").textContent);
+inp(q("tin"),"07:00");inp(q("tout"),"20:00");log.push("OT15: "+OTC().textContent+" [forventet 4,75 = 2,75 før + 2,00 efter]");inp(q("s"),7.4);inp(q("km"),120);inp(q("d"),true);
+$("dnext").click();log.push(DL());inp(q("tin"),"07:00");inp(q("tout"),"15:00");inp(q("sd"),true);log.push("OT16: "+OTC().textContent);inp(q("km"),30);inp(q("dh"),6);log.push("sk16="+q("sk").value);
+$("dmonth").click();log.push("maaned-markør15:"+document.querySelector('.mc[data-d="2026-10-15"] .mk').textContent+" 16:"+document.querySelector('.mc[data-d="2026-10-16"] .mk').textContent);$("mback").click();log.push("tilbage aar vis="+($("v_year").style.display||"ja"));document.querySelector('.yt[data-mo="10"]').click();document.querySelector('.mc[data-d="2026-10-20"]').click();log.push(DL()+"/"+DL()+" "+$("wdates").textContent);inp($("w_a"),false);inp(q("tin"),"07:00");inp(q("tout"),"16:00");log.push("OT20: "+OTC().textContent);$("dnext").click();$("dnext").click();inp(q("tin"),"22:00");inp(q("tout"),"06:00");log.push("OT22: "+OTC().textContent);$("dprev").click();
+$("dnext").click();inp(q("a"),"1");inp(q("sk"),3);log.push(OTC().textContent);
+$("dprev").click();$("dprev").click();log.push(DL()+" mødt="+q("tin").value+" (forventet 07:00, mødt)");
+$("dmonth").click();document.querySelector('.mc[data-d="2026-10-15"]').click();log.push("tilbage: mødt="+q("tin").value+" gået="+q("tout").value+" km="+q("km").value+" / "+OTC().textContent);
+inp($("np_ov"),100);log.push("ov:"+$("np_calc").textContent);const n1=$("net").textContent;inp($("np_ov"),"");log.push("ov fjernet");show("slip");
+const snap=()=>$("plabel").textContent+" net="+$("snet").textContent+" linjer="+document.querySelectorAll("#slip tr").length+" udl="+document.querySelector("#slip tr").dataset.h;
+const sw=dx=>{const el=$("v_slip"),T=x=>new Touch({identifier:1,target:el,clientX:x,clientY:200});el.dispatchEvent(new TouchEvent("touchstart",{touches:[T(200)],changedTouches:[T(200)],bubbles:true}));el.dispatchEvent(new TouchEvent("touchend",{touches:[],changedTouches:[T(200+dx)],bubbles:true}));};
+log.push("NAV start: "+snap()+" dag="+DL());$("prev").click();log.push("‹: "+snap()+" | dag uændret="+DL()+" topnet="+$("net").textContent);
+$("next").click();$("next").click();log.push("››: "+snap());sw(-150);log.push("swipe venstre: "+snap());sw(150);sw(150);log.push("swipe højre x2: "+snap());
+const ps=$("psel");log.push("dropdown: "+ps.options.length+" perioder, markeret="+[...ps.options].filter(o=>o.text.startsWith("●")).map(o=>o.text.slice(2,12)).join(","));
+ps.value="2026-08-15";ps.dispatchEvent(new Event("change"));log.push("valgt aug: "+snap());
+const fx=f=>Math.round(f*100)/100;log.push("NORMDEF dec="+loadM()["2026-12"]+" jul="+loadM()["2026-07"]+" | PAY sep-periode: "+payTxt(new Date(2026,7,15))+" | PAY dec->jan: "+payTxt(new Date(2026,11,15)));
+openMonth(new Date(2026,11,20));log.push("DEC 24/25/26 cls="+["24","25","26"].map(d=>document.querySelector(`.mc[data-d="2026-12-${d}"]`).className.match(/hol/)?"hol":"-").join(","));
+const dn=fx(dayInfo(new Date(2026,11,1),loadD(),loadW(),{c:1,ov:null}).norm);log.push("dec norm/dag="+dn+" (155,46/"+wdEff(2026,11,loadD())+")");
+goDay(new Date(2026,11,2));show("days");inp(q("typ"),"ferie");inp(q("tin"),"07:00");inp(q("tout"),"20:00");log.push("FERIE 2.12: "+OTC().textContent+" | dec norm/dag nu="+fx(dayInfo(new Date(2026,11,1),loadD(),loadW(),{c:1,ov:null}).norm)+" arbejdsdage="+wdEff(2026,11,loadD()));
+openMonth(new Date(2026,11,1));log.push("2.12 cls fer="+/fer/.test(document.querySelector('.mc[data-d="2026-12-02"]').className));
+SP=new Date(2026,10,15);renderSlip();log.push("periode nov-dec OT="+document.querySelector("#slip tr:nth-child(2)").dataset.h+" udbet="+$("ppay").textContent);
+goDay(new Date(2026,9,12));show("days");const tf=$("dc_2026-10-12").querySelector('[data-f="tin"]');tf.dispatchEvent(new FocusEvent("focusin",{bubbles:true}));log.push("PREFILL man 12.10: "+tf.value+"-"+$("dc_2026-10-12").querySelector('[data-f="tout"]').value+" / "+$("ot_2026-10-12").textContent);
+const ff=$("dc_2026-10-16").querySelector('[data-f="tin"]');ff.dispatchEvent(new FocusEvent("focusin",{bubbles:true}));log.push("fre 16 (syg, har tider) uændret: "+ff.value);
+const f17=$("dc_2026-10-17").querySelector('[data-f="tin"]');f17.dispatchEvent(new FocusEvent("focusin",{bubbles:true}));log.push("lør 17 ingen standard: '"+f17.value+"'");
+$("t_set").click();$("go_adv").click();log.push("SHINFO: "+$("shinfo").textContent);$("t_days").click();
+goDay(new Date(2026,9,15));show("days");$("dc_2026-10-13").querySelector(".dr").click();log.push("ACC åben="+document.querySelectorAll("#week .dc.open").length+" ("+(document.querySelector("#week .dc.open")||{}).id+")");$("dc_2026-10-14").querySelector(".dr").click();log.push("ACC efter klik 14: åbne="+document.querySelectorAll("#week .dc.open").length+" "+document.querySelector("#week .dc.open").id);$("dc_2026-10-14").querySelector(".dr").click();log.push("ACC luk: åbne="+document.querySelectorAll("#week .dc.open").length);
+log.push("RÆKKER: "+[...document.querySelectorAll("#week .dr")].map(r=>r.textContent.replace(/\s+/g," ").trim()).join(" / "));
+log.push("UGE: "+$("dtitle").textContent+" "+$("wdates").textContent+" kort="+document.querySelectorAll("#week .dc").length+" wd="+document.querySelectorAll("#week .dc.wd").length+" we="+document.querySelectorAll("#week .dc.we").length);
+$("wnext").click();log.push("› uge: "+$("dtitle").textContent+" "+$("wdates").textContent);$("wprev").click();$("wprev").click();log.push("‹‹ uge: "+$("dtitle").textContent);
+openMonth(new Date(2026,11,20));document.querySelector('.mc[data-d="2026-12-24"]').click();log.push("klik 24.12 -> "+$("dtitle").textContent+" "+$("wdates").textContent+" 24 cls="+$("dc_2026-12-24").className.replace(/\s+/g," ")+" ty="+$("dc_2026-12-24").querySelector(".rt").textContent);
+document.title=log.join(" | ")+" | net m. ov="+n1;}
+</script></body></html>

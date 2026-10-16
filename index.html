@@ -30,12 +30,15 @@ button.row{display:flex;justify-content:space-between;width:100%;margin:10px 0 0
 .dg2 label.cb{display:flex;align-items:center;gap:8px;font-size:.9em;color:var(--fg333);padding-top:16px}.dg2 label.cb input{width:auto}.dc .ot{font-size:.8em;color:var(--fg777);margin-top:10px}
 tr.sum td{font-weight:700;border-top:2px solid var(--bd333)}.note{font-size:.8em;color:var(--fg666)}
 .slip{overflow-x:auto}label{display:flex;justify-content:space-between;align-items:center;margin:6px 0;gap:8px}label input{width:130px}
-input::placeholder{color:var(--fgaaa)}input.t24{text-align:left;font-variant-numeric:tabular-nums}input.t24.bad{border-color:#d33!important;background:rgba(255,0,0,.12)}
+input::placeholder{color:var(--fgaaa)}
+.wh,.dr{display:grid;grid-template-columns:88px 54px 54px 1fr auto;gap:6px;align-items:center}.wh{padding:4px 12px 2px;font-size:.72em;color:var(--fg777);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--bdeee)}
+.dr .tt,.dr .to{font-variant-numeric:tabular-nums}.dr .fl{display:flex;gap:3px}.dr .fl i{font-style:normal;font-size:.68em;font-weight:700;padding:1px 5px;border-radius:6px;background:var(--bgeef2f7);color:var(--fg036)}.dr .fl i.fD{background:var(--bgfff4e0);color:var(--fgc60)}
+.wst{display:block;margin-bottom:4px;color:var(--fg036)}.wsT td{padding:3px 2px;font-size:.92em}.wsT tr.sum td{border-top:2px solid var(--bd036)}input.t24{text-align:left;font-variant-numeric:tabular-nums}input.t24.bad{border-color:#d33!important;background:rgba(255,0,0,.12)}
 nav{display:none}#hbar{display:flex;align-items:center;gap:10px;margin:0 0 8px}#hbar button{padding:8px 12px}#hbar b{font-size:1.1em;color:var(--fg036)}
 #v_home h1{font-size:1.5em;text-align:center;margin:10px 0 2px}#v_home .hs{text-align:center;color:var(--fg666);font-size:.9em;margin-bottom:14px}
 .hg{display:grid;grid-template-columns:1fr 1fr;gap:12px}.hg button{aspect-ratio:1/1;max-height:38vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:1.15em;font-weight:600;border-radius:16px;background:var(--bg036)}.hg button span{font-size:2.2em;line-height:1}.hg button:nth-child(2){background:var(--bg0a6)}.hg button:nth-child(3){background:var(--bg567)}.hg button:nth-child(4){background:var(--bgc60)}
 .wkh{padding:0 2px 4px}.wkh #dtitle{font-size:1.2em}.wkh .wa{margin:2px 4px 0;font-size:.85em}
-.dr{padding:0 12px;min-height:0;height:min(52px,calc((100vh - 190px)/7));box-sizing:border-box}
+.dr{padding:0 12px;min-height:0;height:min(48px,calc((100vh - 215px)/7));box-sizing:border-box}
 .det{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bgfff);border-radius:16px 16px 0 0;box-shadow:0 -4px 20px #0004;max-height:82vh;overflow:auto;padding:0 16px 20px;max-width:720px;margin:auto}.dc.open .dr{padding-bottom:0}
 .shh{display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bgfff);padding:12px 0 10px;margin-bottom:6px;border-bottom:1px solid var(--bdeee)}.shh b{font-size:1.15em}.shh button{padding:8px 16px}
 #sheetbg{display:none;position:fixed;inset:0;background:#0006;z-index:55}#sheetbg.on{display:block}</style></head><body><main>
@@ -46,7 +49,7 @@ nav{display:none}#hbar{display:flex;align-items:center;gap:10px;margin:0 0 8px}#
 <section id="v_days">
 <div class="wkh"><div class="pn"><button id="wprev" class="nb" aria-label="Forrige uge">‹</button><div style="text-align:center;flex:1"><div id="dtitle"></div><div id="wdates"></div></div><button id="wnext" class="nb" aria-label="Næste uge">›</button></div>
 <label class="x-udl wa">Arbejde i udlandet denne uge<input id="w_a" type="checkbox"></label></div>
-<div id="week" class="card" style="padding:4px 0"></div>
+<div id="week" class="card" style="padding:4px 0"></div><div id="wsum" class="card"></div>
 <div hidden><span id="psum_p"></span><div id="dsum"></div><button id="dprev"></button><button id="dnext"></button><button id="dmonth"></button><button id="dtoday"></button></div>
 </section>
 
@@ -151,14 +154,25 @@ if(OT.src=="syg")return "Syg hele dagen";if(OT.src=="gemt")return `Gemt OT ${fmt
 function sumRow(k){const d=pd(k),D=loadD(),v=D[k]||{},{norm}=dayInfo(d,D,loadW()),OT=otOf(v,norm,d,D),ty=dayTyp(k,v),sh=shiftOf(d),c=$("dc_"+k);if(!c)return;
 const tt=v.tin&&v.tout&&!v.sd?`${v.tin}–${v.tout}`:(!v.sd&&!ty&&sh?`<span class=ph>${sh.st}–${sh.en}</span>`:"");
 const ot=Math.round((OT.o1+OT.o2)*100)/100,sick=v.sd||(+v.sk>0&&d.getDay()%6);
-c.querySelector(".tt").innerHTML=tt;c.querySelector(".rt").innerHTML=(ty?`<span class="bd ${ty=="hellig"?"bh":"bf"}">${ty=="hellig"?"Helligdag":"Ferie"}</span>`:"")+(sick?`<span class="bd bs">Syg</span>`:"")+(ot?`<b class=otv>+${fmt(ot).replace(/,00$/,"")} t</b>`:"");}
+{const W=loadW(),A=dayInfo(d,D,W).A,ph=!v.sd&&!ty&&sh&&!(v.tin&&v.tout),fl=[];if(S.xUdland&&A&&(v.tin||+v.s||!ty&&d.getDay()%6))fl.push("<i class=fU>U</i>");if(S.xDiaet&&(v.d||+v.dh||v.rs))fl.push("<i class=fD>D</i>");if(S.xSup&&+v.s)fl.push("<i class=fS>Su</i>");if(S.xKm&&+v.km)fl.push("<i class=fK>K</i>");
+c.querySelector(".tt").innerHTML=v.sd?"":ph?`<span class=ph>${sh.st}</span>`:(v.tin||"");c.querySelector(".to").innerHTML=v.sd?"":ph?`<span class=ph>${sh.en}</span>`:(v.tout||"");c.querySelector(".fl").innerHTML=fl.join("");}if(typeof weekSum=="function")weekSum();c.querySelector(".rt").innerHTML=(ty?`<span class="bd ${ty=="hellig"?"bh":"bf"}">${ty=="hellig"?"Helligdag":"Ferie"}</span>`:"")+(sick?`<span class="bd bs">Syg</span>`:"")+(ot?`<b class=otv>+${fmt(ot).replace(/,00$/,"")} t</b>`:"");}
 function diaetDay(v){if(!S.xDiaet)return{h:0,ex:0,base:0,red:0,lo:0,amt:0,n:0};let ex=+v.dh||0;if(v.rs&&v.re){let a=tm(v.rs),b=tm(v.re);if(b<=a)b+=1440;ex=Math.ceil((b-a)/60-1e-9);}
 const h=(v.d?24:0)+ex,base=h/24*S.diaetRate,n=(v.mb?1:0)+(v.ml?1:0)+(v.ma?1:0),red=h?Math.min(base,((v.mb?+S.mbPct:0)+(v.ml?+S.mlPct:0)+(v.ma?+S.maPct:0))/100*S.diaetRate):0,lo=S.logiOn&&v.lo?+S.logiRate:0,rr=x=>Math.round(x*100)/100;return{h,ex,base:rr(base),red:rr(red),lo,amt:rr(base-red+lo),n};}
 function dnText(k){const x=diaetDay(loadD()[k]||{});if(!x.h&&!x.lo)return "Ingen diæt denne dag";return `Diæt: ${x.h>=24?Math.floor(x.h/24)+" døgn":""}${x.h%24||x.h<24?(x.h>=24?" + ":"")+(x.h%24)+" påbeg. t":""} = ${fmt(x.base)} kr`+(x.red?` − måltider ${fmt(x.red)}`:"")+(x.lo?` + logi ${fmt(x.lo)}`:"")+` → <b>${fmt(x.amt)} kr</b>`;}
+function weekSum(){const el=$("wsum");if(!el)return;const D=loadD(),W=loadW(),m=weekMon(CUR),keep=P,t={nU:0,nD:0,w1:0,w2:0,oU1:0,oU2:0,oD1:0,oD2:0,sk:0,s:0,km:0,di:0};
+for(let i=0;i<7;i++){const d=new Date(m);d.setDate(d.getDate()+i);P=periodOf(d);const {v,norm,A}=dayInfo(d,D,W),sk=d.getDay()%6?(+v.sk||0):0,pay=Math.max(0,norm-sk);if(A)t.nU+=pay;else t.nD+=pay;t.sk+=sk;
+const OT=otOf(v,norm,d,D);if(A){t.oU1+=OT.o1;t.oU2+=OT.o2;}else{t.oD1+=OT.o1;t.oD2+=OT.o2;}if(S.xUdland&&A)t.s+=+v.s||0;t.km+=+v.km||0;t.di+=diaetDay(v).amt;
+if(A&&v.tin&&v.tout&&!v.sd){const a=tm(v.tin);let b=tm(v.tout);if(b<=a)b+=1440;let day=0;for(const [p,q] of [[360,1080],[1800,2520]]){const x=Math.max(a,p),y=Math.min(b,q);if(y>x)day+=(y-x)-ubrk(x,y);}const all=(b-a)-ubrk(a,b);t.w1+=day/60;t.w2+=Math.max(0,all-day)/60;}}
+P=keep;const R=[],f=x=>fmt(Math.round(x*100)/100),U=S.xUdland;
+if(U)R.push(["Normaltimer udland",t.nU]);if(t.nD||!U)R.push([U?"Normaltimer DK":"Normtimer",t.nD]);
+if(U&&(t.w1||t.w2)){R.push(["Udland 06–18 (1080)",t.w1]);R.push(["Udland 18–06 (1081)",t.w2]);}
+if(U){R.push(["Overtid udland før 18",t.oU1]);R.push(["Overtid udland efter 18",t.oU2]);}if(t.oD1||t.oD2||!U){R.push(["Overtid "+(U?"DK ":"")+"før 18",t.oD1]);R.push(["Overtid "+(U?"DK ":"")+"efter 18",t.oD2]);}
+if(t.sk)R.push(["Sygdom",t.sk]);if(S.xSup&&t.s)R.push(["Supervisor",t.s]);const tot=t.nU+t.nD+t.oU1+t.oU2+t.oD1+t.oD2;
+el.innerHTML=`<b class=wst>I alt uge ${isoWeek(m).w}</b><table class=wsT>`+R.map(([a,b])=>`<tr><td>${a}</td><td class=n>${f(b)} t</td></tr>`).join("")+(S.xKm&&t.km?`<tr><td>Kørsel</td><td class=n>${f(t.km)} km</td></tr>`:"")+(S.xDiaet&&t.di?`<tr><td>Diæt</td><td class=n>${f(t.di)} kr</td></tr>`:"")+`<tr class=sum><td>I alt timer (norm + OT)</td><td class=n>${f(tot)} t</td></tr></table>`;}
 function updOT(k){k=k||iso(CUR);{const dn=$("dn_"+k);if(dn)dn.innerHTML=dnText(k);}k=k||iso(CUR);const el=$("ot_"+k);if(el)el.textContent=otText(k);sumRow(k);}
 const NF=(k,f,l,c)=>`<label${c?` class="${c}"`:""}>${l}<input type=number step=any min=0 inputmode=decimal data-k="${k}" data-f="${f}"></label>`;
 function dayCard(k,d,today){const wd=d.getDay()%6,v=loadD()[k]||{},sh=offDay(d,loadD())?null:shiftOf(d);return `<div class="dc ${wd?"wd":"we"} ${k==today?"today":""} ${OPEN==k?"open":""}" id="dc_${k}" data-k="${k}">
-<div class=dr data-row="${k}"><b>${WD[d.getDay()].slice(0,3).replace(/^./,c=>c.toUpperCase())} ${d.getDate()}.${d.getMonth()+1}.</b><span class=tt></span><span class=rt></span></div>
+<div class=dr data-row="${k}"><b>${WD[d.getDay()].slice(0,3).replace(/^./,c=>c.toUpperCase())} ${d.getDate()}.${d.getMonth()+1}.</b><span class=tt></span><span class=to></span><span class=fl></span><span class=rt></span></div>
 <div class=det><div class=dg2><div class="note" style="grid-column:1/-1">${sh&&!v.tin&&!v.tout?`Tom dag = standard ${sh.st}–${sh.en} (tryk på feltet for at udfylde)`:""}</div><label>Mødt<input type=text class=t24 inputmode=numeric lang=da maxlength=5 placeholder="tt:mm" autocomplete=off data-k="${k}" data-f="tin"></label><label>Gået<input type=text class=t24 inputmode=numeric lang=da maxlength=5 placeholder="tt:mm" autocomplete=off data-k="${k}" data-f="tout"></label>
 ${wd?`${NF(k,"sk","Sygdom (timer)")}<label class=cb><input type=checkbox data-k="${k}" data-f="sd">Syg hele dagen</label>`:""}
 <label>Dagtype<select data-k="${k}" data-f="typ"><option value="">Auto</option><option value="arb">Arbejdsdag</option><option value="ferie">Feriedag</option><option value="hellig">Helligdag</option></select></label>
@@ -168,7 +182,7 @@ ${NF(k,"s","Supervisor (timer)","x-sup")}${NF(k,"km","Kørsel (km)","x-km")}
 <div class=ot id="ot_${k}"></div></div></div>`;}
 function renderDays(){const D=loadD(),W=loadW(),m=weekMon(CUR),su=new Date(m);su.setDate(su.getDate()+6);const today=iso(new Date());
 $("dtitle").textContent="Uge "+isoWeek(m).w;$("wdates").textContent=dk(m).slice(0,5)+" – "+dk(su);$("w_a").checked=wAb(W[wkey(m)]||{});
-let h="";for(let i=0;i<7;i++){const d=new Date(m);d.setDate(d.getDate()+i);h+=dayCard(iso(d),d,today);}$("week").innerHTML=h;
+let h="";for(let i=0;i<7;i++){const d=new Date(m);d.setDate(d.getDate()+i);h+=dayCard(iso(d),d,today);}$("week").innerHTML=`<div class=wh><span>Dag</span><span>Ind</span><span>Ud</span><span></span><span>OT</span></div>`+h;
 for(let i=0;i<7;i++){const d=new Date(m);d.setDate(d.getDate()+i);const k=iso(d),v=D[k]||{},ty=dayTyp(k,v),c=$("dc_"+k);
 if(ty)c.classList.add(ty=="hellig"?"hol":"fer");
 c.querySelectorAll("[data-f]").forEach(el=>{const f=el.dataset.f;if(el.type=="checkbox")el.checked=!!v[f];else el.value=v[f]??"";});updOT(k);}
